@@ -1,11 +1,11 @@
 <?php
+
 class BlogPostManager
 {
-    public function getPosts()
+    public function getPosts(): PDOStatement
     {
         $bdd = new PDO('mysql:host=localhost;dbname=P5;charset=utf8', 'root3', '914=GE-FèR/poolm');
-       $req = $bdd->query('SELECT * FROM posts');
-
+        $req = $bdd->query('SELECT * FROM posts');
 
 
         return $req;
@@ -23,13 +23,23 @@ class BlogPostManager
         return $post;
     }
 
+    public function storePost($title, $content): bool
+    {
+        $bdd = $this->dbConnect();
+        $newPost = $bdd->prepare('INSERT INTO posts(title, content, creation_date) VALUES(?, ?, NOW())');
+        /*return $newPost->execute(array($title, $content));*/
+        $affectedLines = $newPost->execute(array($title, $content));
 
-    private function dbConnect()
+        return $affectedLines;
+    }
+
+    private function dbConnect(): PDO
     {
 
- 
+
         $bdd = new PDO('mysql:host=localhost;dbname=P5;charset=utf8', 'root3', '914=GE-FèR/poolm');
-            return $bdd;
+
+        return $bdd;
 
     }
 }

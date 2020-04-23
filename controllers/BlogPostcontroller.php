@@ -27,6 +27,23 @@ function post()
     require('views/frontend/blogView.php');
 }
 
+function createPost()
+{
 
+    require('views/backend/createBlogView.php');
+}
+
+
+function storePost($title, $content)
+{
+    $postManager = new BlogPostManager();
+
+    $affectedLines =  $postManager->storePost($title, $content);
+
+    if ($affectedLines === false) {
+        die('Impossible d\'ajouter le post !');
+    }
+
+}
 
 
