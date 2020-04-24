@@ -23,12 +23,12 @@ class BlogPostManager
         return $post;
     }
 
-    public function storePost($title, $content): bool
+    public function storePost($image ,$title, $content): bool
     {
         $bdd = $this->dbConnect();
-        $newPost = $bdd->prepare('INSERT INTO posts(title, content, creation_date) VALUES(?, ?, NOW())');
+        $newPost = $bdd->prepare('INSERT INTO posts(image ,title, content, creation_date) VALUES(? ,?, ?, NOW())');
         /*return $newPost->execute(array($title, $content));*/
-        $affectedLines = $newPost->execute(array($title, $content));
+        $affectedLines = $newPost->execute(array($image ,$title, $content));
 
         return $affectedLines;
     }

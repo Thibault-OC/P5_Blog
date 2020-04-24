@@ -1,6 +1,7 @@
 <?php
 require('controllers/BlogPostcontroller.php');
 require('controllers/errorController.php');
+require('controllers/UserController.php');
 
 if ($_SERVER['REQUEST_URI'] == '/P5/index.php'){
 
@@ -30,11 +31,36 @@ elseif (isset($_GET['action'])) {
         }
 
     elseif ($_GET['action'] == 'storePost') {
-        storePost( $_POST['title'], $_POST['content'],  $_POST['creation_date']);
+        storePost($_FILES["image"]["name"] , $_POST['title'], $_POST['content'],  $_POST['creation_date'] );
+
+
+
+    }
+
+    elseif ($_GET['action'] == 'createUser') {
+        createUser();
+
+    }
+
+    elseif ($_GET['action'] == 'storeUser') {
+        storeUser( $_POST['username'], $_POST['lastname'],  $_POST['email'],   $_POST['password']);
+
+
     }
 
 
+    elseif ($_GET['action'] == 'user') {
+        interfaceUser();
 
+    }
+    elseif ($_GET['action'] == 'connectUser') {
+        connectUser($_POST['email'],   $_POST['password']);
+
+    }
+    elseif ($_GET['action'] == 'logout') {
+        logoutUser();
+
+    }
 
     else{
         errorPage();

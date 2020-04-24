@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,12 +62,28 @@
                 <li class="page-scroll">
                     <a href="?action=addPost">Ajouter un blog</a>
                 </li>
-                <li class="page-scroll">
-                    <a href="#about">Connexion</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="#contact">Inscription</a>
-                </li>
+                <?php if (!isset($_SESSION['pseudo']) ){ ?>
+                    <li class="page-scroll">
+                        <a href="?action=user">Connexion</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="?action=createUser">Inscription</a>
+                    </li>
+                <?php } ?>
+
+                <?php if (isset($_SESSION['pseudo']) ){ ?>
+
+                    <li class="page-scroll">
+                        <a href="#"> <?php echo  $_SESSION['pseudo'] ?> </a>
+                    </li>
+
+                    <li class="page-scroll">
+                        <a href="?action=logout">Déconnexion</a>
+                    </li>
+
+                <?php } ?>
+
+
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -73,3 +95,19 @@
 <header>
 
 </header>
+
+<?php if (isset($message) ){ ?>
+
+    <div class="alert alert-warning" role="alert">
+        <?php echo $message; ?>
+    </div>
+
+<?php }
+    if(isset($messageSucces)){ ?>
+
+        <div class="alert alert-success" role="alert">
+            <?php echo $messageSucces; ?>
+        </div>
+
+<?php    }
+?>

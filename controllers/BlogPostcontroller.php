@@ -34,16 +34,42 @@ function createPost()
 }
 
 
-function storePost($title, $content)
+function storePost($image , $title, $content )
 {
-    $postManager = new BlogPostManager();
 
-    $affectedLines =  $postManager->storePost($title, $content);
 
-    if ($affectedLines === false) {
-        die('Impossible d\'ajouter le post !');
-    }
 
+
+
+      $uploaddir = './public/img/';
+      $uploadfile = $uploaddir . basename($_FILES['image']['name']);
+
+
+      if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {
+
+          $postManager = new BlogPostManager();
+
+          $affectedLines =  $postManager->storePost($image, $title, $content);
+
+          if ($affectedLines === false) {
+              die('Impossible d\'ajouter le post !');
+
+          }
+          else{
+              $messageSucces = "article bien ajouté";
+
+              require('views/frontend/home.php');
+          }
+
+      } else {
+          echo "impossible d'ajouter l'image :\n";
+      }
+
+
+
+
+
+  
 }
 
 
