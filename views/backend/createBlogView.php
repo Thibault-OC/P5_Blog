@@ -20,6 +20,11 @@ include('views/frontend/header.inc.php'); ?>
             </div>
 
             <div>
+                <label for="content">châpo</label><br />
+                <textarea id="short" maxlength="200" name="chapo"></textarea>
+            </div>
+
+            <div>
                 <label for="content">content</label><br />
                 <textarea id="content" name="content"></textarea>
             </div>

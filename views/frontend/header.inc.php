@@ -1,11 +1,16 @@
 <?php
 
-session_start();
+
+    if(!isset($_SESSION))
+    {
+        session_start();
+    }
+
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
 
@@ -47,7 +52,7 @@ session_start();
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand" href="index.php">BLOG PHP</a>
+            <a class="navbar-brand" href="/P5/index.php">BLOG PHP</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -59,10 +64,13 @@ session_start();
                 <li class="page-scroll">
                     <a href="?action=listPosts">Voir les blogs</a>
                 </li>
+
+                <?php if (isset($_SESSION['pseudo']) ){ ?>
                 <li class="page-scroll">
                     <a href="?action=addPost">Ajouter un blog</a>
                 </li>
-                <?php if (!isset($_SESSION['pseudo']) ){ ?>
+
+                <?php } if (!isset($_SESSION['pseudo']) ){ ?>
                     <li class="page-scroll">
                         <a href="?action=user">Connexion</a>
                     </li>
@@ -81,7 +89,9 @@ session_start();
                         <a href="?action=logout">Déconnexion</a>
                     </li>
 
-                <?php } ?>
+                <?php }
+                
+                ?>
 
 
             </ul>
@@ -95,7 +105,13 @@ session_start();
 <header>
 
 </header>
+<?php if (isset($_GET['message']) ){ ?>
 
+<div class="alert alert-warning" role="alert">
+    veuillez vous connecter pour ajouter un commentaire
+</div>
+
+<?php } ?>
 <?php if (isset($message) ){ ?>
 
     <div class="alert alert-warning" role="alert">

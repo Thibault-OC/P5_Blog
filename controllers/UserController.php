@@ -1,7 +1,6 @@
 <?php
 
-// Chargement des classes
-require_once('models/UserManager.php');
+
 
 function createUser()
 {
@@ -11,27 +10,29 @@ function createUser()
 
 function storeUser($username, $lastname ,$email, $password)
 {
-   $userManager = new UserManager();
+    $userManager = new UserManager();
 
     $affectedLines =  $userManager->storeUser($username, $lastname ,$email, $password);
 
     if ($affectedLines === false) {
 
-        die('Impossible d\'ajouter l\'utilisateur !');
+    die('Impossible d\'ajouter l\'utilisateur !');
 
-
-    }
-    else{
-        require('views/frontend/home.php');
-    }
 
 }
+else{
+    require('views/frontend/home.php');
+}
+
+}
+
 
 function interfaceUser()
 {
     require('views/backend/connexionUserView.php');
 
 }
+
 
 function connectUser($email, $password)
 {
@@ -55,6 +56,7 @@ function connectUser($email, $password)
          if (password_verify($password , $user['password'])) // Acces OK !
          {
             $_SESSION['pseudo'] = $user['username'];
+            $_SESSION['id'] = $user['id'];
             $messageSucces = '<p>Bienvenue '.$user['username'].',
 			vous êtes maintenant connecté!</p>
 			<p>Cliquez <a href="./index.php">ici</a>

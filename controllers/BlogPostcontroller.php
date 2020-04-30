@@ -1,7 +1,6 @@
 <?php
 
-// Chargement des classes
-require_once('models/BlogPostManager.php');
+
 
 
 function listPosts()
@@ -23,6 +22,9 @@ function post()
 
     $post = $postManager->getPost($_GET['id']);
 
+    $commentManager = new CommentManager();
+
+    $comment = $commentManager->getComment($_GET['id']);
 
     require('views/frontend/blogView.php');
 }
@@ -31,14 +33,12 @@ function createPost()
 {
 
     require('views/backend/createBlogView.php');
+
 }
 
 
-function storePost($image , $title, $content )
+function storePost($image , $title,  $chapo,  $content)
 {
-
-
-
 
 
       $uploaddir = './public/img/';
@@ -48,8 +48,8 @@ function storePost($image , $title, $content )
       if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {
 
           $postManager = new BlogPostManager();
-
-          $affectedLines =  $postManager->storePost($image, $title, $content);
+          $auteur = $_SESSION['id'];
+          $affectedLines =  $postManager->storePost($auteur, $image, $title, $content ,$chapo);
 
           if ($affectedLines === false) {
               die('Impossible d\'ajouter le post !');
@@ -63,13 +63,14 @@ function storePost($image , $title, $content )
 
       } else {
           echo "impossible d'ajouter l'image :\n";
+
       }
 
 
 
 
 
-  
+
 }
 
 
