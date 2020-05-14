@@ -15,6 +15,7 @@ function listPosts()
   require('views/frontend/ListBlogsView.php');
 }
 
+
 function post()
 {
     $postManager = new BlogPostManager();
