@@ -29,7 +29,7 @@
     <link href="public/css/freelancer.min.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="public/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="public/css/style.css" rel="stylesheet">
@@ -69,6 +69,10 @@
                 <li class="page-scroll">
                     <a href="?action=addPost">Ajouter un blog</a>
                 </li>
+
+                    <li class="page-scroll">
+                        <a href="?action=userPosts">Modifier mes blogs</a>
+                    </li>
 
                 <?php } if (!isset($_SESSION['pseudo']) ){ ?>
                     <li class="page-scroll">

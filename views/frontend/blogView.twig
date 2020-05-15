@@ -1,20 +1,22 @@
-<?php include('header.inc.php'); ?>
+{% include 'frontend/header.inc.php' %}
 
     <div class="container">
         <div class="row">
            <div class="col-md-12 titre">
 
-               <h1><?php echo $post['title']; ?></h1>
+               <h1>
+                   {{post.title}}
+               </h1>
            </div>
            <div class="col-md-6 image-blog">
-                <img src="././public/img/<?php echo $post['image']; ?>" alt="<?php echo $post['title']; ?>">
+                <img src="././public/img/{{post.image}}" alt="{{post.title}}">
             </div>
             <div class="col-md-6 ">
-                <p>Auteur : <?php echo $post['username']; ?> <?php echo $post['lastname']; ?></p>
-                <p><?php echo $post['chapo']; ?></p>
+                <p>Auteur : {{post.username}} {{post.lastname}} </p>
+                <p>{{post.chapo}}</p>
             </div>
             <div class="col-md-12 ">
-                <p><?php echo $post['content']; ?></p>
+                <p>{{post.content}}</p>
             </div>
 
             <div class="col-md-12 titre"> <h2>Commentaires :</h2> </div>
@@ -25,22 +27,24 @@
                         <label for="content">Ajouter un commentaire : </label><br />
                         <textarea id="content_commentaire" name="content"></textarea>
                     </div>
-                    <input id="Id" name="blog" type="hidden" value="<?php echo $post['id']; ?>">
+                    <input id="Id" name="blog" type="hidden" value="{{post.id}}">
                     <div>
                         <input class="btn btn-success btn-lg" type="submit" />
                     </div>
                 </form>
-               <?php while ($com = $comment ->fetch()) {?>
+
+                {% for com in comment %}
                     <div class="commentaire">
-                        <p>Auteur : <?php echo $com['username']; ?>  <?php echo $com['lastname']; ?></p>
-                        <p>Ajouter le : <?php echo $com['creation_date']; ?></p>
-                        <p> <?php echo $com['content']; ?></p>
+                        <p>Auteur :{{com.username}} {{com.lastname}}</p>
+                        <p>Ajouter le : {{com.creation_date}}</p>
+                        <p> {{com.content}}</p>
                     </div>
-                <?php } ?>
+                {% endfor %}
+
 
 
             </div>
         </div>
     </div>
 
-<?php include('footer.inc.php'); ?>
+{% include 'frontend/footer.inc.php' %}

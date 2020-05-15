@@ -1,17 +1,40 @@
 <?php
 
-function addComment($content , $blog){
+function addComment($content, $blog)
+{
     $auteur = $_SESSION['id'];
     $commentManager = new CommentManager();
-    $affectedLines =  $commentManager->storeComment($content , $blog , $auteur);
+    $affectedLines = $commentManager->storeComment($content, $blog, $auteur);
 
-    if ($affectedLines === false) {
-        header('Location: index.php?action=post&id='.$blog);
+    return $affectedLines;
+}
 
-        $message = "Impossible d'ajouter le commentaire !";
-    }
-    else{
-        header('Location: index.php?action=post&id='.$blog);
-    }
+function adminComment()
+{
+    $commentManager = new CommentManager();
+
+    $comment = $commentManager->adminComment();
+
+    require('views/backend/adminView.php');
+}
+
+function updateComment($id)
+{
+
+    $commentManager = new CommentManager();
+
+    $comment = $commentManager->updateComment($id);
+
+    header('Location: index.php?action=admin');
+}
+
+function deleteComment($id)
+{
+
+    $commentManager = new CommentManager();
+
+    $comment = $commentManager->deleteComment($id);
+
+    header('Location: index.php?action=admin');
 }
 

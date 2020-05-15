@@ -57,6 +57,7 @@ function connectUser($email, $password)
          {
             $_SESSION['pseudo'] = $user['username'];
             $_SESSION['id'] = $user['id'];
+            $_SESSION['admin'] = $user['admin'];
             $messageSucces = '<p>Bienvenue '.$user['username'].',
 			vous êtes maintenant connecté!</p>
 			<p>Cliquez <a href="./index.php">ici</a>
