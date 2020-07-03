@@ -1,12 +1,15 @@
 <?php
 
-class BlogPostManager
-{
-    public function getPosts(): PDOStatement
-    {
-        $bdd = new PDO('mysql:host=localhost;dbname=P5;charset=utf8', 'root3', '914=GE-FèR/poolm');
-        $req = $bdd->query('SELECT * FROM posts');
+namespace Models;
 
+
+class BlogPostManager extends BddManager
+{
+    public function getPosts()
+    {
+        $bdd = $this->dbConnect();
+        $req = $bdd->prepare('SELECT * FROM posts ORDER BY id DESC');
+        $req->execute();
 
         return $req;
 
@@ -19,6 +22,7 @@ class BlogPostManager
         $req = $bdd->prepare('SELECT title , image , username, lastname , chapo, content , posts.id FROM posts INNER JOIN users ON users.id = posts.auteur WHERE posts.id = ?');
         $req->execute(array($postId));
         $post = $req->fetch();
+
         return $post;
     }
 
@@ -35,7 +39,7 @@ class BlogPostManager
     public function getPostsUser($user)
     {
         $bdd = $this->dbConnect();
-        $req = $bdd->prepare('SELECT * FROM posts where auteur = ?');
+        $req = $bdd->prepare('SELECT * FROM posts where auteur = ? ORDER BY id DESC');
         $req->execute(array($user));
         $postUser = $req;
 
@@ -70,13 +74,5 @@ class BlogPostManager
 
     }
 
-    private function dbConnect(): PDO
-    {
 
-
-        $bdd = new PDO('mysql:host=localhost;dbname=P5;charset=utf8', 'root3', '914=GE-FèR/poolm');
-
-        return $bdd;
-
-    }
 }
