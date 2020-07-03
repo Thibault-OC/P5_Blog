@@ -1,73 +1,88 @@
 <?php
 
+namespace Controllers;
 
-function listPosts()
+use Models;
+
+
+class BlogPostcontroller  extends  ConfigController{
+
+function viewAddPosts(){
+    if ($_SESSION['admin'] == 1){
+        
+        echo $this->twig->render('backend/createBlogView.twig');
+    }
+    else{
+        $_SESSION['message'] = "vous n'avez pas les accès ";
+
+        header('Location: accueil');
+    }
+}
+ function listPosts()
 {
 
-    $postManager = new BlogPostManager();
+
+    $postManager = new Models\BlogPostManager();
+
     $posts = $postManager->getPosts();
 
+    echo $this->twig->render('frontend/ListBlogsView.twig', ['posts' => $posts]);
 
-    require('views/frontend/ListBlogsView.php');
+
 }
-
 
 function post()
 {
-    $postManager = new BlogPostManager();
 
+
+    $postManager = new Models\BlogPostManager();
 
     $post = $postManager->getPost($_GET['id']);
 
-    $commentManager = new CommentManager();
+    $comment = $this->postComment();
 
-    $comment = $commentManager->getComment($_GET['id']);
+    echo $this->twig->render('frontend/blogView.twig', ['post' => $post , 'comment' => $comment]);
 
-    return $post;
-
-
-    //require('views/frontend/blogView.twig');
 }
 
 function postComment()
 {
-
-    $commentManager = new CommentManager();
+    $commentManager = new Models\CommentManager();
 
     $comment = $commentManager->getComment($_GET['id']);
 
-    return $comment;
-    
-    //require('views/frontend/blogView.twig');
+        return $comment;
 }
-
-
-function createPost()
-{
-
-    require('views/backend/createBlogView.php');
-
-}
-
 
 function storePost($image, $title, $chapo, $content)
 {
 
+    $image_type = $_FILES['image']['type'];
+    $new_type = str_replace("image/", ".", $image_type );
+    $image_name = $_FILES['image']['tmp_name'];
+    $new_name = str_replace("/tmp/", "", $image_name );
+
+    $imageVal = $new_name.$new_type;
+
+    echo $imageVal;
+
 
     $uploaddir = './public/img/';
-    $uploadfile = $uploaddir.basename($_FILES['image']['name']);
+    $uploadfile = $uploaddir.basename($imageVal);
 
 
     if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {
 
-        $postManager = new BlogPostManager();
+        $postManager = new Models\BlogPostManager();
         $auteur = $_SESSION['id'];
-        $affectedLines = $postManager->storePost($auteur, $image, $title, $content, $chapo);
+        $affectedLines = $postManager->storePost($auteur, $imageVal, $title, $content, $chapo);
 
-        return $affectedLines;
+        header('Location: annonces');
 
     } else {
-        echo "impossible d'ajouter l'image :\n";
+        $_SESSION['message']="impossible d'ajouter une image";
+        
+        header('Location: addpost');
 
     }
 
@@ -76,33 +91,45 @@ function storePost($image, $title, $chapo, $content)
 
 function userPosts()
 {
-    $user = $_SESSION['id'];
 
-    $postManager = new BlogPostManager();
+    if ($_SESSION['admin'] == 1) {
+        $user = $_SESSION['id'];
 
-    $postsUser = $postManager->getPostsUser($user);
+        $postManager = new Models\BlogPostManager();
 
-    require('views/backend/ListBlogsUserView.php');
+        $postsUser = $postManager->getPostsUser($user);
+
+        echo $this->twig->render('backend/ListBlogsUserView.twig', ['posts' => $postsUser]);
+    }
+    else{
+        $_SESSION['message'] = "vous n'avez pas les accès ";
+
+        header('Location: accueil');
+    }
 
 }
 
 function userPost()
 {
-    $postManager = new BlogPostManager();
+
+
+    $postManager = new Models\BlogPostManager();
 
     $post = $postManager->getPost($_GET['id']);
 
-    require('views/backend/editBlogView.php');
+    echo $this->twig->render('backend/editBlogView.twig', ['post' => $post]);
 }
 
 
 function updatePost($title, $chapo, $content, $id)
 {
 
-    $postManager = new BlogPostManager();
+    $postManager = new Models\BlogPostManager();
     $affectedLines = $postManager->updatePost($title, $content, $chapo, $id);
 
-    return $affectedLines;
+    if($affectedLines === true){
+    header('Location: ../annonce/'.$id);
+}
 
 
 
@@ -111,18 +138,20 @@ function updatePost($title, $chapo, $content, $id)
 function deletePost($id)
 {
 
-    $postManager = new BlogPostManager();
+    $postManager = new Models\BlogPostManager();
     $affectedLines = $postManager->deletePost($id);
 
     if ($affectedLines === false) {
-        header('Location: index.php?action=userPosts');
+        header('Location: ../mes-articles');
 
         $message = "Impossible de modifier le post !";
     } else {
 
         echo "test";
-        header('Location: index.php?action=userPosts');
+        header('Location: ../mes-articles');
     }
 
+
+}
 
 }
