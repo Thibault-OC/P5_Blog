@@ -1,181 +1,119 @@
 <?php
-require('vendor/autoload.php');
-require('controllers/BlogPostcontroller.php');
-require('controllers/errorController.php');
-require('controllers/UserController.php');
-require('controllers/CommentController.php');
-require('controllers/messageController.php');
-require_once('models/UserManager.php');
-require_once('models/BlogPostManager.php');
-require_once('models/CommentManager.php');
-
 session_start();
+require('vendor/autoload.php');
+
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', true);
 
-$loader = new \Twig\Loader\FilesystemLoader('views');
-$twig = new \Twig\Environment($loader, [
 
-
-
-]);
-
-
-
-if ($_SERVER['REQUEST_URI'] == '/P5/index.php') {
-
-    require('views/frontend/home.php');
-} elseif (isset($_GET['action'])) {
-
-
-    if ($_GET['action'] == 'listPosts') {
-        listPosts();
-
-    } elseif ($_GET['action'] == 'post') {
-
-        if (isset($_GET['id']) && $_GET['id'] > 0) {
-
-             //post();
-
-            echo $twig->render('frontend/blogView.twig', ['post' => post() , 'comment' => postComment()]);
-
-        } else {
-            errorPage();
-        }
-
-    } elseif ($_GET['action'] == 'addPost') {
-
-        if (isset($_SESSION['pseudo'])) {
-
-            createPost();
-
-        } else {
-            echo "veuillez vous connecter !";
-        }
-
-
-    } elseif ($_GET['action'] == 'storePost') {
-        storePost($_FILES["image"]["name"], $_POST['title'], $_POST['chapo'], $_POST['content'],
-            $_POST['creation_date']);
-
-        if ($affectedLines === false) {
-            die('Impossible d\'ajouter le post !');
-
-        } else {
-            $messageSucces = $message_article_succes;
-
-
-            require('views/frontend/home.php');
-        }
-
-    } elseif ($_GET['action'] == 'createUser') {
-        createUser();
-
-    } elseif ($_GET['action'] == 'storeUser') {
-        storeUser($_POST['username'], $_POST['lastname'], $_POST['email'], $_POST['password']);
-
-
-    } elseif ($_GET['action'] == 'user') {
-        interfaceUser();
-
-    } elseif ($_GET['action'] == 'connectUser') {
-        connectUser($_POST['email'], $_POST['password']);
-
-    } elseif ($_GET['action'] == 'logout') {
-        logoutUser();
-
-    } elseif ($_GET['action'] == 'userPosts') {
-        userPosts();
-
-    } elseif ($_GET['action'] == 'editPost') {
-
-        userPost();
-    } elseif ($_GET['action'] == 'updatePost') {
-
-        updatePost($_POST['title'], $_POST['chapo'], $_POST['content'], $_GET['id']);
-
-        if ($affectedLines === false) {
-            header('Location: index.php?action=post&id='.$id);
-
-            $message = "Impossible de modifier le post !";
-        } else {
-            header('Location: index.php?action=post&id='.$id);
-        }
-
-    } elseif ($_GET['action'] == 'deletePost') {
-
-        deletePost($_GET['id']);
-
-    } elseif ($_GET['action'] == 'admin') {
-
-        if (!$_SESSION['admin']) {
-
-            $message = $message_eror_admin;
-
-            require('views/frontend/home.php');
-        } elseif ($_SESSION['admin'] == 0) {
-
-            $message = $message_admin_refus;
-
-            require('views/frontend/home.php');
-        } elseif ($_SESSION['admin'] == 1) {
-
-            adminComment();
-
-        }
-
-    } elseif ($_GET['action'] == 'addComment') {
-
-        if (isset($_SESSION['pseudo'])) {
-
-            addComment($_POST['content'], $_POST['blog']);
-
-
-            header('Location: index.php?action=post&id='.$_POST['blog']);
-        } else {
-
-
-            header('Location: index.php?action=post&id='.$_POST['blog'].'&message');
-
-        }
-
-    }elseif ($_GET['action'] == 'UpdateComment') {
-
-        if ($_SESSION['admin'] == 1) {
-
-            updateComment($_GET['id']);
-
-        }
-        else{
-            $messageSucces = $message_joli;
-
-
-            require('views/frontend/home.php');
-        }
-
-
-    }elseif ($_GET['action'] == 'deleteComment') {
-
-        if ($_SESSION['admin'] == 1) {
-
-            deleteComment($_GET['id']);
-
-        }
-        else{
-
-            $messageSucces = $message_joli;
-
-
-            require('views/frontend/home.php');
-        }
-
-
-
-    }else
-     {
-        errorPage();
-    }
-
-} else {
-    errorPage();
+$request = $_GET['action'];
+
+
+
+
+
+
+switch ($request){
+
+    case 'accueil';
+        $home = new Controllers\HomeController();
+        $home -> home();
+        unset($_SESSION['message']);
+        break;
+
+    case 'annonces';
+        $annonces = new Controllers\BlogPostcontroller();
+        $annonces->listPosts();
+        break;
+
+    case 'annonce';
+        $annonce = new Controllers\BlogPostcontroller();
+        $annonce->post();
+        break;
+
+    case 'addpost';
+        $addPost = new Controllers\BlogPostcontroller();
+        $addPost->viewAddPosts();
+        break;
+
+    case 'storepost';
+        $storpost = new Controllers\BlogPostcontroller();
+        $storpost->storePost($_FILES["image"]["name"], $_POST['title'], $_POST['chapo'], $_POST['content'] );
+        break;
+
+    case 'user';
+        $viewUser = new Controllers\UserController();
+        $viewUser->viewUser();
+        break;
+
+    case 'connect';
+        $connect = new Controllers\UserController();
+        $connect->connectUser($_POST['email'], $_POST['password']);
+        break;
+
+    case 'logout';
+        $logout = new Controllers\UserController();
+        $logout->logoutUser();
+        break;
+
+    case 'inscription';
+        $inscription = new Controllers\UserController();
+        $inscription->viewInscription();
+        break;
+
+    case 'storeuser';
+        $storeuser = new Controllers\UserController();
+        $storeuser->storeUser($_POST['username'], $_POST['lastname'], $_POST['email'], $_POST['password']);;
+        break;
+
+    case 'mes-articles';
+        $articles = new Controllers\BlogPostcontroller();
+        $articles->userPosts();
+        break;
+
+    case 'modifier-article';
+        $editarticle = new Controllers\BlogPostcontroller();
+        $editarticle->userPost();
+        break;
+
+    case 'valider';
+        $updatePost = new Controllers\BlogPostcontroller();
+        $updatePost->updatePost($_POST['title'], $_POST['chapo'], $_POST['content'], $_GET['id']);
+        break;
+        
+    case 'supprimer-blog';
+        $deletePost = new Controllers\BlogPostcontroller();
+        $deletePost -> deletePost($_GET['id']);
+        break;
+
+    case 'admin';
+        $updatePost = new Controllers\CommentController();
+        $updatePost -> adminComment();
+        break;
+
+    case 'add-comment';
+        $addComment = new Controllers\CommentController();
+        $addComment -> addComment($_POST['content'], $_POST['blog']);
+        break;
+
+    case 'update-comment';
+        $updateComment = new Controllers\CommentController();
+        $updateComment -> updateComment($_GET['id']);
+        break;
+    case 'delete-comment';
+        $deleteComment = new Controllers\CommentController();
+        $deleteComment -> deleteComment($_GET['id']);
+        break;
+
+    case 'contact';
+        $contact =  new Controllers\HomeController();
+        $contact -> homeContact($_POST['nom'], $_POST['prenom'],$_POST['email'],$_POST['telephone'],$_POST['commentaire']);
+        break;
+
+    default;
+        $error = new Controllers\ErrorController();
+        $error -> errorPage();
+        break;
 }
+
+

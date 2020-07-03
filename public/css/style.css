@@ -7,14 +7,43 @@ footer {
 }
 
 .list-blog {
-    text-align: center;
 
     box-shadow: #cccccc;
     padding: 20px;
+
 }
 
 .list-blog .content {
-    border: 1px solid #000000;
+    background: #e5edf4;
+    color: black;
+    border: none;
+    padding: 15px;
+}
+.list-blog  img{
+    max-width:100%;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+ h2{
+    font-style: normal;
+    font-weight: 700;
+    color: #000000 !important;
+    font-size: 17px !important;
+    text-transform: uppercase;
+    margin-bottom: 10px !important;
+}
+.date{
+    color: #2c3e50;
+    font-weight: 700;
+    font-size: 15px;
+}
+.text{
+    font-size: 15px;
+}
+section {
+    padding: 50px 0;
+    padding-top: 170px;
 }
 
 .content-form input, .content-form textarea {
@@ -60,14 +89,84 @@ footer {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    height: 200px;
+}
+.list-blog-user .content{
+    padding:15px;
 }
 
 .list-blog-user {
     margin-bottom: 30px;
-    border: solid 1px #000000;
+    background:#e5edf4;
 }
 
 .page-user-blog {
     padding-top: 50px;
     padding-bottom: 50px;
+}
+
+.navbar-nav>li>a {
+    padding-top: 35px;
+    padding-bottom: 15px;
+    position: relative;
+}
+.navbar-nav>li>a.user_menu:before{
+    content: "";
+    width: 60px;
+    height: 40px;
+    background-image: url(../img/icon/user.png);
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    background-size: contain;
+    transform: translateX(-50%);
+}
+.alert {
+    margin-top: -50px;
+}
+.info{
+     font-size: 14px;
+ }
+.info span{
+    font-weight: 700;
+}
+
+.modal-header{
+    background:#e5edf4;
+}
+.contact input ,
+.contact textarea {
+    width: 100%;
+}
+input{
+    border: none;
+    border-bottom: 1px solid black;
+    background: none;
+    border-radius: 0px;
+}
+
+
+.content-form{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+textarea{
+    background: none;
+    border: 1px solid black;
+}
+
+body{
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.page-connexion{
+    padding: 100px 0;
+}
+
+label{
+    text-transform: uppercase;
 }

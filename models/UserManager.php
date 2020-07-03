@@ -1,6 +1,8 @@
 <?php
+namespace Models;
 
-class UserManager
+
+class UserManager extends BddManager
 {
     public function storeUser($username, $lastname , $email , $password)
     {
@@ -23,14 +25,14 @@ class UserManager
 
     }
 
-
-    private function dbConnect(): PDO
+    public function emailUsers( $email )
     {
-
-
-        $bdd = new PDO('mysql:host=localhost;dbname=P5;charset=utf8', 'root3', '914=GE-FèR/poolm');
-
-        return $bdd;
-
+        $bdd = $this->dbConnect();
+        $req = $bdd->prepare('SELECT email FROM users WHERE email = ?');
+        $req->execute(array($email ));
+        $emailUsers = $req->fetch();
+        return $emailUsers;
     }
+
+
 }
