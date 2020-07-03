@@ -1,84 +1,103 @@
 <?php
+namespace Controllers;
 
+use Models;
 
+class UserController extends ConfigController{
 
-function createUser()
-{
-
-    require('views/backend/newUserview.php');
-}
+ function viewUser(){
+     echo $this->twig->render('backend/connexionUserView.twig');
+ }
+    function viewInscription(){
+        echo $this->twig->render('backend/newUserview.twig');
+    }
 
 function storeUser($username, $lastname ,$email, $password)
 {
-    $userManager = new UserManager();
+    $message =  message();
 
-    $affectedLines =  $userManager->storeUser($username, $lastname ,$email, $password);
-
-    if ($affectedLines === false) {
-
-    die('Impossible d\'ajouter l\'utilisateur !');
+    $userManager = new Models\UserManager();
 
 
-}
-else{
-    require('views/frontend/home.php');
-}
 
-}
+    $emailUsers = $userManager->emailUsers($email);
+
+    if($emailUsers['email'] == $email) {
+
+        $_SESSION['message'] = $message['message_email_error'];
+
+        header('Location: inscription');
+    }
+    else{
+        $affectedLines =  $userManager->storeUser($username, $lastname ,$email, $password);
+
+        if ($affectedLines === false) {
+
+            $_SESSION['message'] = $message['message_error_inscription'];
+
+            header('Location: inscription');
+            
+        }
+        else{
+
+            $_SESSION['message'] = $message['inscription_success'];
+
+            header('Location: accueil');
 
 
-function interfaceUser()
-{
-    require('views/backend/connexionUserView.php');
+        }
+    }
+
 
 }
 
 
 function connectUser($email, $password)
 {
+    $message =  message();
 
-    session_start();
-    
 
     if (empty($email) || empty($password) ) //Oublie d'un champ
-    {
-        $message = '<p>une erreur s\'est produite pendant votre identification.
-        Vous devez remplir tous les champs</p>
-        <p>Cliquez <a href="?action=user">ici</a> pour revenir</p>';
-        require('views/frontend/home.php');
+{
+    $_SESSION['message'] =  $message['message_auth-erreur'];
 
-    }
+    header('Location: user');
+
+}
     else //On check le mot de passe
     {
-        $userManager = new UserManager();
+        $userManager = new Models\UserManager();
         $user =  $userManager->connectUser($email, $password);
 
          if (password_verify($password , $user['password'])) // Acces OK !
          {
+             //session_start();
             $_SESSION['pseudo'] = $user['username'];
+            $_SESSION['name'] = $user['lastname'];
             $_SESSION['id'] = $user['id'];
             $_SESSION['admin'] = $user['admin'];
-            $messageSucces = '<p>Bienvenue '.$user['username'].',
-			vous êtes maintenant connecté!</p>
-			<p>Cliquez <a href="./index.php">ici</a>
-			pour revenir à la page d accueil</p>';
-             require('views/frontend/home.php');
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['message'] = $message['message_login'];
 
+             header('Location: accueil');
 
         }
          else {
-             $message =  'Le mot de passe est invalide.';
-             require('views/frontend/home.php');
+             $_SESSION['message'] = $message['message_refus'];
+
+             header('Location: user');
+
          }
 
-
-
     }
+
 }
 
 function logoutUser(){
-    session_start();
+    $message =  message();
     session_destroy();
-    $message = '<p>Vous êtes à présent déconnecté</p>';
-    header('Location: index.php');
+    $_SESSION['message'] = $message['message_logout'];
+    header('Location: accueil');
+
+}
 }
