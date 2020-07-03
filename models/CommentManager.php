@@ -1,12 +1,13 @@
 <?php
+namespace Models;
 
-class CommentManager
+
+class CommentManager extends BddManager
 {
     public function storeComment($content, $blog, $auteur)
     {
         $bdd = $this->dbConnect();
         $newComment = $bdd->prepare('INSERT INTO comment(content , auteur , blog_id ,creation_date) VALUES(? , ? , ? , NOW())');
-        //return $newPost->execute(array($title, $content));
         $affectedLines = $newComment->execute(array($content, $auteur, $blog));
 
         return $affectedLines;
@@ -16,8 +17,8 @@ class CommentManager
     public function getComment($postId)
     {
         $bdd = $this->dbConnect();
-        $comment = $bdd->query('SELECT * FROM comment INNER JOIN users ON users.id = comment.auteur where valide = 1 AND blog_id = '.$postId);
-
+        $comment = $bdd->prepare('SELECT * FROM comment INNER JOIN users ON users.id = comment.auteur where valide = 1 AND blog_id = ? ORDER BY comment.id DESC ');
+        $comment->execute(array($postId));
         return $comment;
 
 
@@ -26,7 +27,7 @@ class CommentManager
     public function adminComment()
     {
         $bdd = $this->dbConnect();
-        $adminComment = $bdd->prepare('SELECT * FROM comment INNER JOIN users ON users.id = comment.auteur where valide = 0');
+        $adminComment = $bdd->prepare('SELECT * FROM comment  where valide = 0 ORDER BY id DESC ');
         $adminComment->execute(array());
         $comment = $adminComment;
         return $comment;
@@ -60,13 +61,5 @@ class CommentManager
 
     }
 
-    private function dbConnect(): PDO
-    {
-
-
-        $bdd = new PDO('mysql:host=localhost;dbname=P5;charset=utf8', 'root3', '914=GE-FèR/poolm');
-
-        return $bdd;
-    }
 
 }
