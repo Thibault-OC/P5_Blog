@@ -1,4 +1,6 @@
-{% include 'frontend/header.inc.php' %}
+{% extends 'template/layout.html.twig' %}
+
+{% block content %}
 
     <div class="container">
         <div class="row">
@@ -9,7 +11,7 @@
                </h1>
            </div>
            <div class="col-md-6 image-blog">
-                <img src="././public/img/{{post.image}}" alt="{{post.title}}">
+                <img src="../P5//public/img/{{post.image}}" alt="{{post.title}}">
             </div>
             <div class="col-md-6 ">
                 <p>Auteur : {{post.username}} {{post.lastname}} </p>
@@ -21,11 +23,11 @@
 
             <div class="col-md-12 titre"> <h2>Commentaires :</h2> </div>
             <div class="col-md-12 bloc-commentaire">
-                <form action="http://51.75.126.51/P5/index.php?action=addComment" method="post">
+                <form action="../P5/add-comment" method="post">
 
                     <div>
                         <label for="content">Ajouter un commentaire : </label><br />
-                        <textarea id="content_commentaire" name="content"></textarea>
+                        <textarea id="content_commentaire" name="content" required="required"></textarea>
                     </div>
                     <input id="Id" name="blog" type="hidden" value="{{post.id}}">
                     <div>
@@ -47,4 +49,4 @@
         </div>
     </div>
 
-{% include 'frontend/footer.inc.php' %}
+{% endblock %}

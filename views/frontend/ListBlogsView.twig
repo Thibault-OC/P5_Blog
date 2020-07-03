@@ -1,0 +1,30 @@
+{% extends 'template/layout.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+
+            {% for donnees in posts %}
+
+                <div class="col-md-4 list-blog">
+                    <img src="../P5/public/img/{{ donnees.image }}"
+                         alt="{{ donnees.title }}">
+                    <div class="content">
+
+
+                        <h2>{{ donnees.title }}</h2>
+                        <p class="date">{{ donnees.update_date }}</p>
+                        <p class="text">{{ donnees.chapo }}</p>
+
+                        <a href="../P5/annonce/{{ donnees.id }}"
+                           class="btn btn-success btn-lg"> voir plus</a>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}

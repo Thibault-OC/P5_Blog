@@ -1,0 +1,38 @@
+{% extends 'template/layout.html.twig' %}
+
+{% block content %}
+
+
+<div class="container page-user-blog">
+    <div class="row">
+        <H1> Commentaires en attentes de validation </H1>
+
+
+
+        {% for com in comment %}
+
+            <div class="col-md-12 list-blog-user">
+                <div class="content row">
+
+
+
+                        <div class="commentaire">
+                            <p>Auteur : {{com.username}}{{com.lastname}}</p>
+                            <p>Ajouter le :  {{com.creation_date}}</p>
+                            <p> {{com.content}}</p>
+                        </div>
+                    <a href="../P5/update-comment/{{com.0}}"
+
+                       class="btn btn-success btn-lg"> valider</a>
+
+                    <a href="../P5/delete-comment/{{com.0}}"
+                       class="btn btn-danger btn-lg"> Supprimer</a>
+                </div>
+            </div>
+
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}

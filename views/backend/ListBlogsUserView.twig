@@ -1,0 +1,39 @@
+{% extends 'template/layout.html.twig' %}
+
+{% block content %}
+
+
+    <div class="container page-user-blog">
+        <div class="row">
+
+
+            {% for donnees in posts %}
+
+                <div class="col-md-12 list-blog-user">
+                    <div class="content row">
+                        <div class="col-md-4">
+                            <img src="../P5/public/img/{{ donnees.image }}"
+                                 alt="{{ donnees.title }}">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="content">
+                                <h2>{{ donnees.title }}</h2>
+                                <p class="date">{{ donnees.update_date }}</p>
+                                <p class="text">{{ donnees.chapo }}</p>
+
+                                <a href="../P5/modifier-article/{{ donnees.id }}"
+                                   class="btn btn-success btn-lg"> Modifier</a>
+
+                                <a href="../P5/supprimer-blog/{{ donnees.id }}"
+                                   class="btn btn-danger btn-lg"> Supprimer</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}

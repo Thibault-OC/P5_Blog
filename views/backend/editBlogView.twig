@@ -1,0 +1,38 @@
+{% extends 'template/layout.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 form-edit  content-form">
+                <div class="col-lg-8 col-lg-offset-2">
+                <form action="../P5/valider/{{post.id}}" method="post" enctype="multipart/form-data">
+                    <div class ="content-form col-md-12">
+                        <label>title</label><br/>
+                        <input type="text" id="title" name="title" required="required" value="{{post.title}}"/>
+                    </div>
+
+                    <div class ="content-form col-md-12">
+                        <label >châpo</label><br/>
+                        <textarea id="short" maxlength="200" rows="5"  required="required" name="chapo">{{ post.chapo }}</textarea>
+                    </div>
+
+                    <div class ="content-form col-md-12">
+                        <label >content</label><br/>
+                        <textarea id="content" required="required" rows="10" name="content">{{ post.content }}</textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <button type="submit" class="btn btn-success btn-lg">Envoyer</button>
+                        </div>
+                    </div>
+                </form>
+                 <div class="col-lg-8 col-lg-offset-2">
+            </div>
+
+
+        </div>
+    </div>
+
+{% endblock %}

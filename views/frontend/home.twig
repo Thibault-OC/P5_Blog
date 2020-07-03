@@ -1,0 +1,53 @@
+{% extends 'template/layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <H1>
+            Page d'accueil
+        </H1>
+        <div class="col-lg-8 col-lg-offset-2">
+        <form class="contact" name="contact_form" method="post" action="../P5/contact">
+                    <h2 class="text-center" >Contactez-nous</h2>
+                        <div class ="content-form col-md-6">
+                            <label for="nom">Nom *</label>
+
+
+                            <input  type="text" name="nom" maxlength="50" size="30" required="required" value="{% if session.name is defined %} {{ session.name }} {% endif %}">
+                        </div>
+
+                        <div class ="content-form col-md-6">
+                            <label for="prenom">Prénom *</label>
+
+                            <input  type="text" name="prenom" maxlength="50" size="30" required="required" value="{% if session.pseudo is defined %} {{ session.pseudo }} {% endif %}">
+                        </div>
+
+                        <div class ="content-form col-md-12">
+                            <label for="email">Email Addresse *</label>
+
+                            <input  type="text" name="email" maxlength="80" size="30" required="required" value="{% if session.email is defined %} {{ session.email }} {% endif %}">
+                        </div>
+
+                        <div class ="content-form col-md-12">
+                            <label for="telephone">Téléphone</label>
+
+
+                            <input  type="text" name="telephone" required="required" maxlength="30" size="30" >
+                        </div>
+                        <div class ="content-form col-md-12">
+                            <label for="commentaire">Message *</label>
+
+                            <textarea  name="commentaire" cols="28" required="required" rows="10"></textarea>
+                        </div>
+
+                        <div id="success"></div>
+                        <div class="row">
+                            <div class="form-group col-xs-12">
+                                <button type="submit" class="btn btn-success btn-lg">Envoyer</button>
+                            </div>
+                        </div>
+
+        </form>
+        </div>
+    </div>
+
+{% endblock %}

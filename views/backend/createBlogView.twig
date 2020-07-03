@@ -1,0 +1,42 @@
+{% extends 'template/layout.html.twig' %}
+
+{% block content %}
+
+
+    <div class="container">
+        <h1>Ajouter un Blog</h1>
+        <div class="content-form">
+            <div class="col-lg-8 col-lg-offset-2">
+            <form action="../P5/storepost" method="post"
+                  enctype="multipart/form-data">
+                <div class ="content-form col-md-12">
+                    <input type="hidden" name="MAX_FILE_SIZE" value="300000"/>
+                    <label>Image</label><br/>
+                    <input type="file" name="image" id="image" required="required">
+                </div>
+                <div class ="content-form col-md-12">
+                    <label >title</label><br/>
+                    <input type="text" id="title" name="title" required="required"/>
+                </div>
+
+                <div class ="content-form col-md-12">
+                    <label >châpo</label><br/>
+                    <textarea id="short" maxlength="200" rows="5" name="chapo" required="required"></textarea>
+                </div>
+
+                <div class ="content-form col-md-12">
+                    <label >content</label><br/>
+                    <textarea id="content" rows="10" name="content" required="required"></textarea>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-12">
+                        <button type="submit" class="btn btn-success btn-lg">Envoyer</button>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
