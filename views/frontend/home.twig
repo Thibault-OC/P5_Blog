@@ -2,41 +2,70 @@
 
 {% block content %}
     <div class="container">
-        <H1>
-            Page d'accueil
-        </H1>
-        <div class="col-lg-8 col-lg-offset-2">
+
+            <H1 class="text-center ">
+                Page d'accueil
+            </H1>
+            <div class="container bloc-perso">
+                <div class="row">
+                    <div class="col-md-2 text-center">
+                        <img class="myPicutre" src="../P5/public/img/moi.jpg" alt="ma photo">
+                    </div>
+                    <div class="col-md-8 ">
+                       <p> Thibault Vacheron</p>
+                        <p>Email : Vacheron.thibault@gmail.com</p>
+                        <p>Le développeur qu'il vous faut ! </p>
+                        <a href="../P5/public/CV-thibault-vacheron.pdf " target="_blank"  class="btn btn-success btn-lg">Mon cv</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-lg-offset-2 container-form">
+            <h2 class="title" >Contactez-nous</h2>
+            <div class="alt"><div class="toggle"></div></div>
+
+
         <form class="contact" name="contact_form" method="post" action="../P5/contact">
-                    <h2 class="text-center" >Contactez-nous</h2>
+
                         <div class ="content-form col-md-6">
+
+
+
+                            <input  type="text" name="nom" maxlength="50" size="30" required="required">
                             <label for="nom">Nom *</label>
-
-
-                            <input  type="text" name="nom" maxlength="50" size="30" required="required" value="{% if session.name is defined %} {{ session.name }} {% endif %}">
+                            <div class="bar"></div>
                         </div>
 
                         <div class ="content-form col-md-6">
+
+
+                            <input  type="text" name="prenom" maxlength="50" size="30" required="required">
                             <label for="prenom">Prénom *</label>
-
-                            <input  type="text" name="prenom" maxlength="50" size="30" required="required" value="{% if session.pseudo is defined %} {{ session.pseudo }} {% endif %}">
+                            <div class="bar"></div>
                         </div>
 
                         <div class ="content-form col-md-12">
+
+
+                            <input  type="text" name="email" maxlength="80" size="30" required="required">
                             <label for="email">Email Addresse *</label>
-
-                            <input  type="text" name="email" maxlength="80" size="30" required="required" value="{% if session.email is defined %} {{ session.email }} {% endif %}">
+                            <div class="bar"></div>
                         </div>
 
                         <div class ="content-form col-md-12">
-                            <label for="telephone">Téléphone</label>
+
 
 
                             <input  type="text" name="telephone" required="required" maxlength="30" size="30" >
+                            <label for="telephone">Téléphone</label>
+                            <div class="bar"></div>
                         </div>
                         <div class ="content-form col-md-12">
-                            <label for="commentaire">Message *</label>
+
 
                             <textarea  name="commentaire" cols="28" required="required" rows="10"></textarea>
+                            <label for="commentaire">Message *</label>
+                            <div class="bar"></div>
                         </div>
 
                         <div id="success"></div>
@@ -48,6 +77,6 @@
 
         </form>
         </div>
-    </div>
+
 
 {% endblock %}

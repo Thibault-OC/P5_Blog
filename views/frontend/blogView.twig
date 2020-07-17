@@ -38,7 +38,7 @@
                 {% for com in comment %}
                     <div class="commentaire">
                         <p>Auteur :{{com.username}} {{com.lastname}}</p>
-                        <p>Ajouter le : {{com.creation_date}}</p>
+                        <p>Ajouter le : {{ com.creation_date|date("d/m/Y") }}</p>
                         <p> {{com.content}}</p>
                     </div>
                 {% endfor %}

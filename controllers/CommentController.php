@@ -41,7 +41,8 @@ function adminComment()
     $comment = $commentManager->adminComment();
     if ($_SESSION['admin'] == 1) {
 
-        echo $this->twig->render('backend/adminView.twig', ['comment' => $comment]);
+        echo $this->twig->render('backend/adminView.twig', ['comment' => $comment ]);
+
 
 
    }
@@ -56,12 +57,15 @@ function adminComment()
 function updateComment($id)
 {
 
-    
+    $message =  message();
+
     $commentManager = new Models\CommentManager();
 
     $comment = $commentManager->updateComment($id);
 
     $comments = $this->adminComment();
+
+    $_SESSION['message'] = $message['message_comment_valid'];
 
     return $comments;
 
@@ -77,6 +81,7 @@ function deleteComment($id)
     $comment = $commentManager->deleteComment($id);
 
     $comments = $this->adminComment();
+
 
     return $comments;
 

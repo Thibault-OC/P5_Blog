@@ -48,13 +48,13 @@ class BlogPostManager extends BddManager
 
     }
 
-    public function updatePost($title, $content, $chapo, $id)
+    public function updatePost($image , $title, $content, $chapo, $id)
     {
         $bdd = $this->dbConnect();
 
-        $newPost = $bdd->prepare('UPDATE posts SET title= ?,chapo= ?,content= ?,update_date = NOW() WHERE id = ?');
+        $newPost = $bdd->prepare('UPDATE posts SET image = ? ,title= ?,chapo= ?,content= ?,update_date = NOW() WHERE id = ?');
 
-        $affectedLines = $newPost->execute(array($title, $chapo, $content, $id));
+        $affectedLines = $newPost->execute(array($image ,$title, $chapo, $content, $id));
 
         return $affectedLines;
 

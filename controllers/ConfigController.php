@@ -19,8 +19,7 @@ class ConfigController
 
         $this->twig = new \Twig\Environment($loader, [
             'cache' => false,
-            'auto_reload' => true,
-            'debug' => true,
+            
 
         ]);
         $this->twig->addGlobal('session', $_SESSION);

@@ -3,34 +3,52 @@
 {% block content %}
 
 
-    <div class="container">
-        <h1>Inscription</h1>
-        <div class="content-form">
-            <form action="../P5/storeuser" method="post">
-                <div>
-                    <label for="title">Nom</label><br />
-                    <input type="text" required="required" id="title" name="username" />
-                </div>
-                <div>
-                    <label for="title">Prénom</label><br />
-                    <input type="text" required="required" id="title" name="lastname" />
-                </div>
-                <div>
-                    <label for="title">Email</label><br />
-                    <input type="email" required="required" id="title" name="email" />
-                </div>
-                <div>
-                    <label for="title">Mot de passe</label><br />
-                    <input type="password" required="required" id="title" name="password" />
-                </div>
+<div class="container">
 
-
-
-                <div>
-                    <input type="submit" />
-                </div>
-            </form>
+    <div class="col-lg-8 col-lg-offset-2 container-form">
+        <h1 class="title">Inscription</h1>
+        <div class="alt">
+            <div class="toggle"></div>
         </div>
+        <form action="../P5/storeuser" method="post">
+
+            <div class="content-form col-md-6">
+
+                <input type="text" required="required"  name="username" />
+                <label for="title">Nom</label>
+                <div class="bar"></div>
+            </div>
+
+            <div class="content-form col-md-6">
+
+                <input type="text" required="required"  name="lastname" />
+                <label for="title">Prénom</label>
+                <div class="bar"></div>
+            </div>
+
+            <div class="content-form col-md-12">
+
+                <input type="email" required="required" name="email" />
+                <label for="title">Email</label>
+                <div class="bar"></div>
+                
+            </div>
+
+            <div class="content-form col-md-12">
+
+                <input type="password" required="required"  name="password" />
+                <label for="title">Mot de passe</label>
+                <div class="bar"></div>
+            </div>
+
+
+
+            <div>
+                <input class="btn btn-success btn-lg" type="submit" />
+            </div>
+        </form>
     </div>
+</div>
+
 
 {% endblock %}

@@ -27,7 +27,7 @@ class CommentManager extends BddManager
     public function adminComment()
     {
         $bdd = $this->dbConnect();
-        $adminComment = $bdd->prepare('SELECT * FROM comment  where valide = 0 ORDER BY id DESC ');
+        $adminComment = $bdd->prepare('SELECT * FROM comment INNER JOIN users ON comment.auteur = users.id   where valide = 0 ORDER BY comment.id DESC ');
         $adminComment->execute(array());
         $comment = $adminComment;
         return $comment;

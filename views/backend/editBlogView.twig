@@ -2,37 +2,60 @@
 
 {% block content %}
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 form-edit  content-form">
-                <div class="col-lg-8 col-lg-offset-2">
-                <form action="../P5/valider/{{post.id}}" method="post" enctype="multipart/form-data">
-                    <div class ="content-form col-md-12">
-                        <label>title</label><br/>
-                        <input type="text" id="title" name="title" required="required" value="{{post.title}}"/>
-                    </div>
+<div class="container">
+    <div class="row">
 
-                    <div class ="content-form col-md-12">
-                        <label >châpo</label><br/>
-                        <textarea id="short" maxlength="200" rows="5"  required="required" name="chapo">{{ post.chapo }}</textarea>
-                    </div>
 
-                    <div class ="content-form col-md-12">
-                        <label >content</label><br/>
-                        <textarea id="content" required="required" rows="10" name="content">{{ post.content }}</textarea>
-                    </div>
 
-                    <div class="row">
-                        <div class="form-group col-xs-12">
-                            <button type="submit" class="btn btn-success btn-lg">Envoyer</button>
-                        </div>
+
+        <div class="col-lg-8 col-lg-offset-2 container-form">
+            <h1 class="title">Modifier le Blog</h1>
+            <div class="alt">
+                <div class="toggle"></div>
+            </div>
+            <form action="../P5/valider/{{post.id}}" method="post" enctype="multipart/form-data">
+                <div class="col-md-6 img-update">
+                   <img src="../P5/public/img/{{ post.image }}"alt="{{post.title}}">
+                </div>
+                <div class="input-img content-form col-md-12">
+                    <input type="hidden" name="MAX_FILE_SIZE" value="300000" />
+                    <input type="hidden" name="oldimage" value="{{ post.image }}"/>
+                    <label>Image</label>
+                    <input type="file" name="image" id="image">
+                </div>
+
+                <div class="content-form col-md-12">
+
+                    <input type="text" id="title" name="title" required="required" value="{{post.title}}" />
+                    <label>title</label>
+                    <div class="bar"></div>
+                </div>
+
+                <div class="content-form col-md-12">
+
+                    <textarea id="short" maxlength="200" rows="5" required="required" name="chapo">{{ post.chapo }}</textarea>
+                    <label>châpo</label>
+                    <div class="bar"></div>
+                </div>
+
+                <div class="content-form col-md-12">
+
+                    <textarea id="content" required="required" rows="10" name="content">{{ post.content }}</textarea>
+                    <label>content</label>
+                    <div class="bar"></div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-12">
+                        <button type="submit" class="btn btn-success btn-lg">Envoyer</button>
                     </div>
-                </form>
-                 <div class="col-lg-8 col-lg-offset-2">
+                </div>
+            </form>
+            <div class="col-lg-8 col-lg-offset-2">
             </div>
 
 
         </div>
-    </div>
 
-{% endblock %}
+
+        {% endblock %}

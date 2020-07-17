@@ -14,7 +14,8 @@ function message(){
         "message_error_inscription" => "une erreur s'est produite pendant votre inscritpion. Vous devez remplir tous les champs",
         "inscription_success" => "inscription reussi ",
         "message_email_error" => "Adresse Email déja utilisé",
-
+        "message_comment_valid" =>"Le commentaire est validé",
+        "message_comment_suppr" => "commentaire supprimé"
     );
     return $messagetest;
 

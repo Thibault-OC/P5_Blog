@@ -111,26 +111,79 @@ function userPosts()
 
 function userPost()
 {
+  if ($_SESSION['admin'] == 1) {
+      $postManager = new Models\BlogPostManager();
 
+      $post = $postManager->getPost($_GET['id']);
 
-    $postManager = new Models\BlogPostManager();
+      echo $this->twig->render('backend/editBlogView.twig', ['post' => $post]);
+  }
+  else{
+      $_SESSION['message']= " vous n'avez pas les droit accéder a la page";
 
-    $post = $postManager->getPost($_GET['id']);
-
-    echo $this->twig->render('backend/editBlogView.twig', ['post' => $post]);
+      header('Location: ../acceuil');
+  }
 }
 
 
-function updatePost($title, $chapo, $content, $id)
+function updatePost( $oldimage ,$image ,$title, $chapo, $content, $id)
 {
 
-    $postManager = new Models\BlogPostManager();
-    $affectedLines = $postManager->updatePost($title, $content, $chapo, $id);
+    if ($_SESSION['admin'] == 1) {
+    if ( $image == ""){
+        $postManager = new Models\BlogPostManager();
+        $affectedLines = $postManager->updatePost($oldimage ,$title, $content, $chapo, $id);
 
-    if($affectedLines === true){
-    header('Location: ../annonce/'.$id);
-}
+        if($affectedLines === true){
+            header('Location: ../annonce/'.$id);
+            $_SESSION['message'] = "Le blog a bien été modifié ";
+        }
+        else {
+            $_SESSION['message']="impossible de changer l'image";
 
+            header('Location: ../addpost');
+
+        }
+    }
+    else{
+        $image_type = $_FILES['image']['type'];
+        $new_type = str_replace("image/", ".", $image_type );
+        $image_name = $_FILES['image']['tmp_name'];
+        $new_name = str_replace("/tmp/", "", $image_name );
+
+        $imageVal = $new_name.$new_type;
+
+
+
+        $uploaddir = './public/img/';
+        $uploadfile = $uploaddir.basename($imageVal);
+
+
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {
+
+            $postManager = new Models\BlogPostManager();
+            $affectedLines = $postManager->updatePost($imageVal ,$title, $content, $chapo, $id);
+
+            if($affectedLines === true){
+                header('Location: ../annonce/'.$id);
+                $_SESSION['message'] = "Le blog a bien été modifié ";
+            }
+
+        } else {
+            $_SESSION['message']="impossible de changer l'image";
+
+            header('Location: ../addpost');
+
+        }
+
+    }
+
+    }
+    else{
+        $_SESSION['message']= " vous n'avez pas les droit pour modifier le blog";
+
+        header('Location: ../acceuil');
+    }
 
 
 }
@@ -144,11 +197,12 @@ function deletePost($id)
     if ($affectedLines === false) {
         header('Location: ../mes-articles');
 
-        $message = "Impossible de modifier le post !";
+        $_SESSION['message']= "Impossible de modifier le post !";
     } else {
 
-        echo "test";
+
         header('Location: ../mes-articles');
+        $_SESSION['message']= "le blog a bien été supprimé";
     }
 
 
