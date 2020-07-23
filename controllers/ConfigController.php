@@ -8,24 +8,29 @@ use Models;
 class ConfigController
 {
 
-    function __construct()
+    /*function __construct()
     {
         $this->twigInit();
-    }
+    }*/
 
-    function twigInit()
+    static function render($view , $variables)
     {
         $loader = new \Twig\Loader\FilesystemLoader('views');
 
-        $this->twig = new \Twig\Environment($loader, [
+        $twig = new \Twig\Environment($loader, [
             'cache' => false,
             
 
         ]);
-        $this->twig->addGlobal('session', $_SESSION);
+        $twig->addGlobal('session', $_SESSION);
 
-        return $this->twig;
+        echo $twig->render($view , $variables);
 
+    }
+
+
+    static function get($name){
+        return $_GET[$name];
     }
 
 }

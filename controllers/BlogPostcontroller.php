@@ -37,11 +37,13 @@ function post()
 
     $postManager = new Models\BlogPostManager();
 
-    $post = $postManager->getPost($_GET['id']);
+    $post = $postManager->getPost(ConfigController::get('id'));
 
     $comment = $this->postComment();
 
-    echo $this->twig->render('frontend/blogView.twig', ['post' => $post , 'comment' => $comment]);
+    ConfigController::render('frontend/blogView.twig', ['post' => $post , 'comment' => $comment]);
+
+    /*echo $this->twig->render('frontend/blogView.twig', ['post' => $post , 'comment' => $comment]);*/
 
 }
 
