@@ -53,7 +53,6 @@ return $this->_POST;
 */
 public function get_GET($key = null)
 {
-    echo"test";
 if (null !== $key) {
 return (isset($this->_GET["$key"])) ? $this->_GET["$key"] : null;
 } else {

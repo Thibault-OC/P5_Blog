@@ -41,7 +41,7 @@ function post()
 
     $comment = $this->postComment();
 
-    ConfigController::render('frontend/blogView.twig', ['post' => $post , 'comment' => $comment]);
+    echo $this->twig->render('frontend/blogView.twig', ['post' => $post , 'comment' => $comment]);
 
     /*echo $this->twig->render('frontend/blogView.twig', ['post' => $post , 'comment' => $comment]);*/
 
@@ -76,7 +76,7 @@ function storePost($image, $title, $chapo, $content)
     if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {
 
         $postManager = new Models\BlogPostManager();
-        $auteur = $_SESSION['id'];
+        $auteur = ConfigController::get_SESSION('id');
         $affectedLines = $postManager->storePost($auteur, $imageVal, $title, $content, $chapo);
 
         header('Location: annonces');
@@ -94,8 +94,10 @@ function storePost($image, $title, $chapo, $content)
 function userPosts()
 {
 
-    if ($_SESSION['admin'] == 1) {
-        $user = $_SESSION['id'];
+
+    if (ConfigController::get_SESSION('admin') == 1) {
+
+        $user = ConfigController::get_SESSION('id');
 
         $postManager = new Models\BlogPostManager();
 
@@ -113,10 +115,10 @@ function userPosts()
 
 function userPost()
 {
-  if ($_SESSION['admin'] == 1) {
+  if (ConfigController::get_SESSION('admin') == 1) {
       $postManager = new Models\BlogPostManager();
 
-      $post = $postManager->getPost($_GET['id']);
+      $post = $postManager->getPost(ConfigController::get_GET('id'));
 
       echo $this->twig->render('backend/editBlogView.twig', ['post' => $post]);
   }
@@ -131,7 +133,7 @@ function userPost()
 function updatePost( $oldimage ,$image ,$title, $chapo, $content, $id)
 {
 
-    if ($_SESSION['admin'] == 1) {
+    if (ConfigController::get_SESSION('admin')== 1) {
     if ( $image == ""){
         $postManager = new Models\BlogPostManager();
         $affectedLines = $postManager->updatePost($oldimage ,$title, $content, $chapo, $id);
