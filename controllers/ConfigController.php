@@ -21,7 +21,7 @@ class ConfigController extends GlobalController
 
         $this->define_superglobals();
 
-        
+
     }
 
 
@@ -47,8 +47,5 @@ class ConfigController extends GlobalController
 
     }
 
-
-
-
-
+    
 }

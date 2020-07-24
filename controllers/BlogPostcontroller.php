@@ -59,14 +59,15 @@ function postComment()
 function storePost($image, $title, $chapo, $content)
 {
 
-    $image_type = $_FILES['image']['type'];
+
+    $image_type = $this->get_FILES('type');
+
     $new_type = str_replace("image/", ".", $image_type );
-    $image_name = $_FILES['image']['tmp_name'];
+    $image_name = $this->get_FILES('tmp_name');
     $new_name = str_replace("/tmp/", "", $image_name );
 
     $imageVal = $new_name.$new_type;
 
-    echo $imageVal;
 
 
     $uploaddir = './public/img/';
@@ -85,7 +86,7 @@ function storePost($image, $title, $chapo, $content)
 
     } else {
         $this->put('message', "impossible d'ajouter une image");
-        
+
         header('Location: addpost');
 
     }
@@ -153,9 +154,9 @@ function updatePost( $oldimage ,$image ,$title, $chapo, $content, $id)
         }
     }
     else{
-        $image_type = $_FILES['image']['type'];
+        $image_type = $this->get_FILES('type');
         $new_type = str_replace("image/", ".", $image_type );
-        $image_name = $_FILES['image']['tmp_name'];
+        $image_name = $this->get_FILES('tmp_name');
         $new_name = str_replace("/tmp/", "", $image_name );
 
         $imageVal = $new_name.$new_type;

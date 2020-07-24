@@ -16,11 +16,11 @@ class HomeController extends ConfigController
 function homeContact($nom , $prenom , $email , $telephone , $commentaire)
 {
 
-    $nom = ConfigController::get_POST('nom');
-    $prenom = ConfigController::get_POST('prenom');
-    $email = ConfigController::get_POST('email');
-    $telephone = ConfigController::get_POST('telephone');
-    $commentaire = ConfigController::get_POST('commentaire');
+    $nom = $this->get_POST('nom');
+    $prenom = $this->get_POST('prenom');
+    $email = $this->get_POST('email');
+    $telephone = $this->get_POST('telephone');
+    $commentaire = $this->get_POST('commentaire');
 
 
     if (isset($_POST['email'])) {
@@ -104,8 +104,7 @@ function homeContact($nom , $prenom , $email , $telephone , $commentaire)
         mail($email_to, $email_subject, $email_message, $headers);
 
         header('Location:accueil');
-        $_SESSION['message'] = "Message bien envoyé";
-
+        $this->put('message', "Message bien envoyé");
     }
 }
 }

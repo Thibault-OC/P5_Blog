@@ -8,6 +8,7 @@ private $_SERVER;
 private $_POST;
 private $_GET;
 private $_SESSION;
+private $_FILES;
 
 public function __construct()
 {
@@ -69,12 +70,13 @@ return $this->_GET;
 */
 public function get_SESSION($key = null)
 {
-if (null !== $key) {
-return (isset($this->_SESSION["$key"])) ? $this->_SESSION["$key"] : null;
-} else {
-return $this->_SESSION;
+    if (null !== $key) {
+        return (isset($this->_SESSION["$key"])) ? $this->_SESSION["$key"] : null;
+    } else {
+        return $this->_SESSION;
+    }
 }
-}
+
 /**
 * Function to define superglobals for use locally.
 * We do not automatically unset the superglobals after
@@ -82,6 +84,19 @@ return $this->_SESSION;
 *
 * @return mixed
 */
+
+
+public function get_FILES($key = null )
+    {
+        if (null !== $key) {
+            return (isset($this->_FILES['image']["$key"])) ? $this->_FILES['image']["$key"] : null;
+        } else {
+            return $this->_FILES;
+        }
+    }
+
+
+
 public function define_superglobals()
 {
 
@@ -92,10 +107,9 @@ $this->_SERVER = (isset($_SERVER)) ? $_SERVER : null;
 $this->_POST = (isset($_POST)) ? $_POST : null;
 $this->_GET = (isset($_GET)) ? $_GET : null;
 $this->_SESSION = (isset($_SESSION)) ? $_SESSION : null;
+$this->_FILES = (isset($_FILES)) ? $_FILES : null;
 
 }
-
-
 
 /**
 * You may call this function from your compositioning root,
