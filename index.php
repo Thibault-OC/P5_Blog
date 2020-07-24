@@ -6,12 +6,9 @@ ini_set('error_reporting', E_ALL);
 ini_set('display_errors', true);
 
 
-$request = $_GET['action'];
+$Global = new Controllers\ConfigController();
 
-
-
-
-
+$request = $Global->get_GET('action');
 
 switch ($request){
 
@@ -38,7 +35,7 @@ switch ($request){
 
     case 'storepost';
         $storpost = new Controllers\BlogPostcontroller();
-        $storpost->storePost($_FILES["image"]["name"], $_POST['title'], $_POST['chapo'], $_POST['content'] );
+        $storpost->storePost($_FILES["image"]["name"], $Global->get_POST('title'), $Global->get_POST('chapo'), $Global->get_POST('content') );
         break;
 
     case 'user';
@@ -48,7 +45,7 @@ switch ($request){
 
     case 'connect';
         $connect = new Controllers\UserController();
-        $connect->connectUser($_POST['email'], $_POST['password']);
+        $connect->connectUser( $Global->get_POST('email'), $Global->get_POST('password'));
         break;
 
     case 'logout';
@@ -63,7 +60,7 @@ switch ($request){
 
     case 'storeuser';
         $storeuser = new Controllers\UserController();
-        $storeuser->storeUser($_POST['username'], $_POST['lastname'], $_POST['email'], $_POST['password']);;
+        $storeuser->storeUser( $Global->get_POST('username'), $Global->get_POST('lastname') ,$Global->get_POST('email') ,$Global->get_POST('password'));;
         break;
 
     case 'mes-articles';
@@ -78,12 +75,12 @@ switch ($request){
 
     case 'valider';
         $updatePost = new Controllers\BlogPostcontroller();
-        $updatePost->updatePost($_POST['oldimage'] , $_FILES["image"]["name"] ,$_POST['title'], $_POST['chapo'], $_POST['content'], $_GET['id']);
+        $updatePost->updatePost($Global->get_POST('oldimage') , $_FILES["image"]["name"] ,$Global->get_POST('title'),$Global->get_POST('chapo') ,$Global->get_POST('content') , $Global->get_POST('id'));
         break;
         
     case 'supprimer-blog';
         $deletePost = new Controllers\BlogPostcontroller();
-        $deletePost -> deletePost($_GET['id']);
+        $deletePost -> deletePost( $Global->get_GET('id'));
         break;
 
     case 'admin';
@@ -93,21 +90,21 @@ switch ($request){
 
     case 'add-comment';
         $addComment = new Controllers\CommentController();
-        $addComment -> addComment($_POST['content'], $_POST['blog']);
+        $addComment -> addComment($Global->get_POST('content') ,$Global->get_POST('blog'));
         break;
 
     case 'update-comment';
         $updateComment = new Controllers\CommentController();
-        $updateComment -> updateComment($_GET['id']);
+        $updateComment -> updateComment($Global->get_GET('id'));
         break;
     case 'delete-comment';
         $deleteComment = new Controllers\CommentController();
-        $deleteComment -> deleteComment($_GET['id']);
+        $deleteComment -> deleteComment($Global->get_GET('id'));
         break;
 
     case 'contact';
         $contact =  new Controllers\HomeController();
-        $contact -> homeContact($_POST['nom'], $_POST['prenom'],$_POST['email'],$_POST['telephone'],$_POST['commentaire']);
+        $contact -> homeContact($Global->get_POST('nom') ,$Global->get_POST('prenom'),$Global->get_POST('email') ,$Global->get_POST('telephone') ,$Global->get_POST('commentaire'));
         break;
 
     default;

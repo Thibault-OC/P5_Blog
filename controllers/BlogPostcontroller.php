@@ -56,7 +56,7 @@ function postComment()
         return $comment;
 }
 
-function storePost( $title, $chapo, $content)
+function storePost($image , $title, $chapo, $content)
 {
 
 
