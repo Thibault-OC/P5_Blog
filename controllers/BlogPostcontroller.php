@@ -56,7 +56,7 @@ function postComment()
         return $comment;
 }
 
-function storePost($image, $title, $chapo, $content)
+function storePost( $title, $chapo, $content)
 {
 
 
@@ -80,7 +80,7 @@ function storePost($image, $title, $chapo, $content)
 
         $auteur = $this->get_SESSION('id');
 
-        $affectedLines = $postManager->storePost($auteur, $imageVal, $title, $content, $chapo);
+        $postManager->storePost($auteur, $imageVal, $title, $content, $chapo);
 
         header('Location: annonces');
 

@@ -18,7 +18,7 @@ function addComment($content, $blog)
 
     $commentManager = new Models\CommentManager();
 
-    $affectedLines = $commentManager->storeComment($content, $blog, $auteur);
+    $commentManager->storeComment($content, $blog, $auteur);
 
     $pseudo = $this->get_SESSION('pseudo');
 
@@ -66,7 +66,7 @@ function updateComment($id)
 
     $commentManager = new Models\CommentManager();
 
-    $comment = $commentManager->updateComment($id);
+    $commentManager->updateComment($id);
 
     $comments = $this->adminComment();
 
@@ -83,7 +83,7 @@ function deleteComment($id)
 
     $commentManager = new Models\CommentManager();
 
-    $comment = $commentManager->deleteComment($id);
+    $commentManager->deleteComment($id);
 
     $comments = $this->adminComment();
 

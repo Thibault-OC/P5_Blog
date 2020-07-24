@@ -31,13 +31,7 @@ function homeContact($nom , $prenom , $email , $telephone , $commentaire)
 
         function died($error)
         {
-            // your error code can go here
-            /*echo
-                "Nous sommes désolés, mais des erreurs ont été détectées dans le".
-                " formulaire que vous avez envoyé. ";
-            echo "Ces erreurs apparaissent ci-dessous.<br /><br />";
-            echo $error."<br /><br />";
-            echo "Merci de corriger ces erreurs.<br /><br />";*/
+          
             $_SESSION['message'] = "Nous sommes désolés, mais des erreurs ont été détectées dans le".
                 " formulaire que vous avez envoyé." ;
             header('Location:accueil');

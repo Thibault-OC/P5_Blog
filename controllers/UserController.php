@@ -99,7 +99,7 @@ function logoutUser(){
     session_destroy();
 
     $this->put('message', $message['message_logout']);
-    
+
     header('Location: accueil');
 
 }
