@@ -121,9 +121,10 @@ function userPost()
   if ($this->get_SESSION('admin') == 1) {
       $postManager = new Models\BlogPostManager();
 
-      $post = $postManager->getPost(ConfigController::get_GET('id'));
+      $post = $postManager->getPost($this->get_GET('id'));
 
-      echo $this->twig->render('backend/editBlogView.twig', ['post' => $post]);
+
+      print_r(  $this->twig->render('backend/editBlogView.twig', ['post' => $post]));
   }
   else{
 

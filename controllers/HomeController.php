@@ -23,7 +23,7 @@ function homeContact($nom , $prenom , $email , $telephone , $commentaire)
     $commentaire = $this->get_POST('commentaire');
 
 
-    if (isset($_POST['email'])) {
+    if (isset($email)) {
 
      
         $email_to = "thib.du-42@hotmail.fr";
@@ -31,9 +31,7 @@ function homeContact($nom , $prenom , $email , $telephone , $commentaire)
 
         function died($error)
         {
-          
-            $_SESSION['message'] = "Nous sommes désolés, mais des erreurs ont été détectées dans le".
-                " formulaire que vous avez envoyé." ;
+            $this->put('message', "Nous sommes désolés, mais des erreurs ont été détectées dans le formulaire que vous avez envoyé.");
             header('Location:accueil');
             exit();
             //die();
