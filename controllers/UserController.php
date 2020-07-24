@@ -72,13 +72,13 @@ function connectUser($email, $password)
          if (password_verify($password , $user['password'])) // Acces OK !
          {
 
-
-             ConfigController::put('pseudo', $user['username']);
-             ConfigController::put('name', $user['lastname']);
-             ConfigController::put('id', $user['id']);
-             ConfigController::put('admin', $user['admin']);
-             ConfigController::put('email', $user['email']);
-             ConfigController::put('message', $message['message_login']);
+             $global = new ConfigController();
+             $global->put('pseudo', $user['username']);
+             $global->put('name', $user['lastname']);
+             $global->put('id', $user['id']);
+             $global->put('admin', $user['admin']);
+             $global->put('email', $user['email']);
+             $global->put('message', $message['message_login']);
 
             /*_SESSION['pseudo'] = $user['username'];
             $_SESSION['name'] = $user['lastname'];
