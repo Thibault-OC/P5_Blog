@@ -20,6 +20,7 @@ $this->define_superglobals();
 * @param $key
 * @return mixed
 */
+
 public function get_SERVER($key = null)
 {
 if (null !== $key) {
@@ -52,6 +53,7 @@ return $this->_POST;
 */
 public function get_GET($key = null)
 {
+    echo"test";
 if (null !== $key) {
 return (isset($this->_GET["$key"])) ? $this->_GET["$key"] : null;
 } else {
@@ -81,7 +83,7 @@ return $this->_SESSION;
 *
 * @return mixed
 */
-private function define_superglobals()
+public function define_superglobals()
 {
 
 // Store a local copy of the PHP superglobals

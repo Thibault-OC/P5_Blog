@@ -1,19 +1,22 @@
 <?php
 
 namespace Controllers;
+require_once('../P5/controllers/GlobalController.php');
 
-require('../P5/controllers/GlobalController.php');
 
 use Models;
 
 
-class ConfigController
+class ConfigController extends GlobalController
 {
 
     function __construct()
     {
        /* $this->twigInit();*/
         $this->global = new GlobalController;
+
+        $this->define_superglobals();
+
     }
 
     static function render($view , $variables)

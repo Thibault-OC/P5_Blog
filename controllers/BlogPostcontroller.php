@@ -36,7 +36,7 @@ function post()
 
     $postManager = new Models\BlogPostManager();
 
-    $post = $postManager->getPost(filter_input(INPUT_GET, 'id'));
+    $post = $postManager->getPost(ConfigController::get_GET('id'));
 
 
     $comment = $this->postComment();
@@ -51,7 +51,7 @@ function postComment()
 {
     $commentManager = new Models\CommentManager();
 
-    $comment = $commentManager->getComment($_GET['id']);
+    $comment = $commentManager->getComment(ConfigController::get_GET('id'));
 
         return $comment;
 }
