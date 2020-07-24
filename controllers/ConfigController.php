@@ -1,7 +1,7 @@
 <?php
 
 namespace Controllers;
-require_once('../P5/controllers/GlobalController.php');
+
 
 
 use Models;
@@ -22,11 +22,10 @@ class ConfigController extends GlobalController
         $this->define_superglobals();
 
         
-
     }
 
 
-    public  function put($key, $value){
+    public static function put($key, $value){
 
         $_SESSION[$key] = $value;
 

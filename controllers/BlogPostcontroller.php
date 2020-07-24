@@ -36,20 +36,20 @@ function post()
 
     $postManager = new Models\BlogPostManager();
 
-    $post = $postManager->getPost(ConfigController::get_GET('id'));
+    $post = $postManager->getPost($this->get_GET('id'));
 
 
     $comment = $this->postComment();
 
     echo $this->twig->render('frontend/blogView.twig', ['post' => $post , 'comment' => $comment]);
-    
+
 }
 
 function postComment()
 {
     $commentManager = new Models\CommentManager();
 
-    $comment = $commentManager->getComment(ConfigController::get_GET('id'));
+    $comment = $commentManager->getComment($this->get_GET('id'));
 
         return $comment;
 }
@@ -75,7 +75,7 @@ function storePost($image, $title, $chapo, $content)
 
         $postManager = new Models\BlogPostManager();
 
-        $auteur = ConfigController::get_SESSION('id');
+        $auteur = $this->get_SESSION('id');
 
         $affectedLines = $postManager->storePost($auteur, $imageVal, $title, $content, $chapo);
 
@@ -95,9 +95,9 @@ function userPosts()
 {
 
 
-    if (ConfigController::get_SESSION('admin') == 1) {
+    if ($this->get_SESSION('admin') == 1) {
 
-        $user = ConfigController::get_SESSION('id');
+        $user = $this->get_SESSION('id');
 
         $postManager = new Models\BlogPostManager();
 
@@ -115,7 +115,7 @@ function userPosts()
 
 function userPost()
 {
-  if (ConfigController::get_SESSION('admin') == 1) {
+  if ($this->get_SESSION('admin') == 1) {
       $postManager = new Models\BlogPostManager();
 
       $post = $postManager->getPost(ConfigController::get_GET('id'));
@@ -133,7 +133,7 @@ function userPost()
 function updatePost( $oldimage ,$image ,$title, $chapo, $content, $id)
 {
 
-    if (ConfigController::get_SESSION('admin')== 1) {
+    if ($this->get_SESSION('admin')== 1) {
     if ( $image == ""){
         $postManager = new Models\BlogPostManager();
         $affectedLines = $postManager->updatePost($oldimage ,$title, $content, $chapo, $id);
