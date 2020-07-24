@@ -18,13 +18,15 @@ function storeUser($username, $lastname ,$email, $password)
 
     $userManager = new Models\UserManager();
 
-
+    $global = new ConfigController();
 
     $emailUsers = $userManager->emailUsers($email);
 
     if($emailUsers['email'] == $email) {
 
-        $_SESSION['message'] = $message['message_email_error'];
+        //$_SESSION['message'] = $message['message_email_error'];
+
+        $global->put('message', $message['message_email_error']);
 
         header('Location: inscription');
     }
@@ -33,14 +35,18 @@ function storeUser($username, $lastname ,$email, $password)
 
         if ($affectedLines === false) {
 
-            $_SESSION['message'] = $message['message_error_inscription'];
+            //$_SESSION['message'] = $message['message_error_inscription'];
+
+            $global->put('message', $message['message_error_inscription']);
 
             header('Location: inscription');
             
         }
         else{
 
-            $_SESSION['message'] = $message['inscription_success'];
+            $global->put('message', $message['inscription_success']);
+
+            //$_SESSION['message'] = $message['inscription_success'];
 
             header('Location: accueil');
 
@@ -56,10 +62,13 @@ function connectUser($email, $password)
 {
     $message =  message();
 
+    $global = new ConfigController();
 
     if (empty($email) || empty($password) ) //Oublie d'un champ
 {
-    $_SESSION['message'] =  $message['message_auth-erreur'];
+    //$_SESSION['message'] =  $message['message_auth-erreur'];
+
+    $global->put('message', $message['message_auth-erreur']);
 
     header('Location: user');
 
@@ -72,7 +81,7 @@ function connectUser($email, $password)
          if (password_verify($password , $user['password'])) // Acces OK !
          {
 
-             $global = new ConfigController();
+
              $global->put('pseudo', $user['username']);
              $global->put('name', $user['lastname']);
              $global->put('id', $user['id']);
@@ -92,8 +101,7 @@ function connectUser($email, $password)
         }
          else {
              //$_SESSION['message'] = $message['message_refus'];
-
-             ConfigController::put('message', $message['message_refus']);
+             $global->put('message', $message['message_refus']);
              header('Location: user');
 
          }
@@ -105,8 +113,9 @@ function connectUser($email, $password)
 function logoutUser(){
     $message =  message();
     session_destroy();
+    $global = new ConfigController();
     //$_SESSION['message'] = $message['message_logout'];
-    ConfigController::put('message', $message['message_logout']);
+    $global->put('message', $message['message_logout']);
     header('Location: accueil');
 
 }
