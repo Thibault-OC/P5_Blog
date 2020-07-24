@@ -94,6 +94,9 @@ $this->_GET = (isset($_GET)) ? $_GET : null;
 $this->_SESSION = (isset($_SESSION)) ? $_SESSION : null;
 
 }
+
+
+
 /**
 * You may call this function from your compositioning root,
 * if you are sure superglobals will not be needed by

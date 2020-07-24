@@ -9,13 +9,21 @@ use Models;
 
 class ConfigController extends GlobalController
 {
-
+    public $vars;
+    
     function __construct()
     {
-       $this->twigInit();
+        $this->twigInit();
+
         $this->global = new GlobalController;
 
         $this->define_superglobals();
+
+    }
+
+    public static function put($key, $value){
+
+        $_SESSION[$key] = $value;
 
     }
 
@@ -28,7 +36,7 @@ class ConfigController extends GlobalController
 
 
         ]);
-        
+
         $this->twig->addGlobal('session', $_SESSION);
 
         return $this->twig;

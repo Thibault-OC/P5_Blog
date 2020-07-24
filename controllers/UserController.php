@@ -71,20 +71,29 @@ function connectUser($email, $password)
 
          if (password_verify($password , $user['password'])) // Acces OK !
          {
-             //session_start();
-            $_SESSION['pseudo'] = $user['username'];
+
+
+             ConfigController::put('pseudo', $user['username']);
+             ConfigController::put('name', $user['lastname']);
+             ConfigController::put('id', $user['id']);
+             ConfigController::put('admin', $user['admin']);
+             ConfigController::put('email', $user['email']);
+             ConfigController::put('message', $message['message_login']);
+
+            /*_SESSION['pseudo'] = $user['username'];
             $_SESSION['name'] = $user['lastname'];
             $_SESSION['id'] = $user['id'];
             $_SESSION['admin'] = $user['admin'];
             $_SESSION['email'] = $user['email'];
-            $_SESSION['message'] = $message['message_login'];
+            $_SESSION['message'] = $message['message_login'];*/
 
              header('Location: accueil');
 
         }
          else {
-             $_SESSION['message'] = $message['message_refus'];
+             //$_SESSION['message'] = $message['message_refus'];
 
+             ConfigController::put('message', $message['message_refus']);
              header('Location: user');
 
          }
@@ -96,7 +105,8 @@ function connectUser($email, $password)
 function logoutUser(){
     $message =  message();
     session_destroy();
-    $_SESSION['message'] = $message['message_logout'];
+    //$_SESSION['message'] = $message['message_logout'];
+    ConfigController::put('message', $message['message_logout']);
     header('Location: accueil');
 
 }
