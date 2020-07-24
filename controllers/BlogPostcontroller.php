@@ -42,9 +42,7 @@ function post()
     $comment = $this->postComment();
 
     echo $this->twig->render('frontend/blogView.twig', ['post' => $post , 'comment' => $comment]);
-
-    /*echo $this->twig->render('frontend/blogView.twig', ['post' => $post , 'comment' => $comment]);*/
-
+    
 }
 
 function postComment()
@@ -78,7 +76,7 @@ function storePost($image, $title, $chapo, $content)
         $postManager = new Models\BlogPostManager();
 
         $auteur = ConfigController::get_SESSION('id');
-        
+
         $affectedLines = $postManager->storePost($auteur, $imageVal, $title, $content, $chapo);
 
         header('Location: annonces');
