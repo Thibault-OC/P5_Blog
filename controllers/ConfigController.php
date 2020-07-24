@@ -2,16 +2,19 @@
 
 namespace Controllers;
 
+require('../P5/controllers/GlobalController.php');
+
 use Models;
 
 
 class ConfigController
 {
 
-    /*function __construct()
+    function __construct()
     {
-        $this->twigInit();
-    }*/
+       /* $this->twigInit();*/
+        $this->global = new GlobalController;
+    }
 
     static function render($view , $variables)
     {
@@ -32,5 +35,7 @@ class ConfigController
     static function get($name){
         return $_GET[$name];
     }
+
+
 
 }

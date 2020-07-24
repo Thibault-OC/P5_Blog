@@ -34,10 +34,10 @@ function viewAddPosts(){
 function post()
 {
 
-
     $postManager = new Models\BlogPostManager();
 
-    $post = $postManager->getPost(ConfigController::get('id'));
+    $post = $postManager->getPost(filter_input(INPUT_GET, 'id'));
+
 
     $comment = $this->postComment();
 

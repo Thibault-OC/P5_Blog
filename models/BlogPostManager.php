@@ -23,6 +23,7 @@ class BlogPostManager extends BddManager
         $req->execute(array($postId));
         $post = $req->fetch();
 
+
         return $post;
     }
 
