@@ -76,7 +76,9 @@ function storePost($image, $title, $chapo, $content)
     if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {
 
         $postManager = new Models\BlogPostManager();
+
         $auteur = ConfigController::get_SESSION('id');
+        
         $affectedLines = $postManager->storePost($auteur, $imageVal, $title, $content, $chapo);
 
         header('Location: annonces');

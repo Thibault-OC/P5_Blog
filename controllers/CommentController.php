@@ -14,13 +14,17 @@ function addComment($content, $blog)
 
     $message = message();
 
-    $auteur = $_SESSION['id'];
+    $auteur = ConfigController::get_SESSION('id');
+
     $commentManager = new Models\CommentManager();
+
     $affectedLines = $commentManager->storeComment($content, $blog, $auteur);
 
-    if (isset($_SESSION['pseudo'])) {
+    $pseudo = ConfigController::get_SESSION('pseudo');
 
-        header('Location: annonce/'.$_POST['blog']);
+    if (isset($pseudo)) {
+
+        header('Location: annonce/'.ConfigController::get_POST('blog'));
     }
     else{
 
@@ -39,6 +43,7 @@ function adminComment()
     $commentManager = new Models\CommentManager();
 
     $comment = $commentManager->adminComment();
+    
     if ($_SESSION['admin'] == 1) {
 
         echo $this->twig->render('backend/adminView.twig', ['comment' => $comment ]);

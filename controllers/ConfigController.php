@@ -28,6 +28,7 @@ class ConfigController extends GlobalController
 
 
         ]);
+        
         $this->twig->addGlobal('session', $_SESSION);
 
         return $this->twig;
