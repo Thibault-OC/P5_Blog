@@ -13,8 +13,14 @@ class HomeController extends ConfigController
     }
 
 
-function homeContact($nom , $prenom, $email ,$telephone,$commentaire)
+function homeContact($nom , $prenom , $email , $telephone , $commentaire)
 {
+
+    $nom = ConfigController::get_POST('nom');
+    $prenom = ConfigController::get_POST('prenom');
+    $email = ConfigController::get_POST('email');
+    $telephone = ConfigController::get_POST('telephone');
+    $commentaire = ConfigController::get_POST('commentaire');
 
 
     if (isset($_POST['email'])) {
@@ -41,22 +47,18 @@ function homeContact($nom , $prenom, $email ,$telephone,$commentaire)
 
 
         // si la validation des données attendues existe
-        if (!isset($_POST['nom']) ||
-            !isset($_POST['prenom']) ||
-            !isset($_POST['email']) ||
-            !isset($_POST['telephone']) ||
-            !isset($_POST['commentaire'])) {
+        if (!isset($nom) ||
+            !isset($prenom) ||
+            !isset($email) ||
+            !isset($telephone) ||
+            !isset($commentaire)) {
             died(
                 'Nous sommes désolés, mais le formulaire que vous avez soumis semble poser'.
                 ' problème.');
         }
 
 
-        $nom = $_POST['nom']; // required
-        $prenom = $_POST['prenom']; // required
-        $email = $_POST['email']; // required
-        $telephone = $_POST['telephone']; // not required
-        $commentaire = $_POST['commentaire']; // required
+
 
         $error_message = "";
         $email_exp = '/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/';
