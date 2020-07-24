@@ -8,12 +8,14 @@ use Models;
 class BlogPostcontroller  extends  ConfigController{
 
 function viewAddPosts(){
-    if ($_SESSION['admin'] == 1){
+
+
+    if ($this->get_SESSION('admin') == 1){
         
         echo $this->twig->render('backend/createBlogView.twig');
     }
     else{
-        $_SESSION['message'] = "vous n'avez pas les accès ";
+        $this->put('message', "vous n'avez pas les accès");
 
         header('Location: accueil');
     }
@@ -82,7 +84,7 @@ function storePost($image, $title, $chapo, $content)
         header('Location: annonces');
 
     } else {
-        $_SESSION['message']="impossible d'ajouter une image";
+        $this->put('message', "impossible d'ajouter une image");
         
         header('Location: addpost');
 
@@ -106,7 +108,7 @@ function userPosts()
         echo $this->twig->render('backend/ListBlogsUserView.twig', ['posts' => $postsUser]);
     }
     else{
-        $_SESSION['message'] = "vous n'avez pas les accès ";
+        $this->put('message', "vous n'avez pas les accès");
 
         header('Location: accueil');
     }
@@ -123,7 +125,8 @@ function userPost()
       echo $this->twig->render('backend/editBlogView.twig', ['post' => $post]);
   }
   else{
-      $_SESSION['message']= " vous n'avez pas les droit accéder a la page";
+
+      $this->put('message', "vous n'avez pas les droit accéder a la page");
 
       header('Location: ../acceuil');
   }
@@ -140,10 +143,10 @@ function updatePost( $oldimage ,$image ,$title, $chapo, $content, $id)
 
         if($affectedLines === true){
             header('Location: ../annonce/'.$id);
-            $_SESSION['message'] = "Le blog a bien été modifié ";
+            $this->put('message', "Le blog a bien été modifié");
         }
         else {
-            $_SESSION['message']="impossible de changer l'image";
+            $this->put('message', "impossible de changer l'image");
 
             header('Location: ../addpost');
 
@@ -170,11 +173,11 @@ function updatePost( $oldimage ,$image ,$title, $chapo, $content, $id)
 
             if($affectedLines === true){
                 header('Location: ../annonce/'.$id);
-                $_SESSION['message'] = "Le blog a bien été modifié ";
+                $this->put('message', "Le blog a bien été modifié");
             }
 
         } else {
-            $_SESSION['message']="impossible de changer l'image";
+            $this->put('message', "impossible de changer l'image");
 
             header('Location: ../addpost');
 
@@ -184,7 +187,7 @@ function updatePost( $oldimage ,$image ,$title, $chapo, $content, $id)
 
     }
     else{
-        $_SESSION['message']= " vous n'avez pas les droit pour modifier le blog";
+        $this->put('message', "vous n'avez pas les droit pour modifier le blog");
 
         header('Location: ../acceuil');
     }
@@ -200,13 +203,13 @@ function deletePost($id)
 
     if ($affectedLines === false) {
         header('Location: ../mes-articles');
-
-        $_SESSION['message']= "Impossible de modifier le post !";
+        $this->put('message', "Impossible de modifier le post !");
     } else {
 
 
         header('Location: ../mes-articles');
-        $_SESSION['message']= "le blog a bien été supprimé";
+
+        $this->put('message', "le blog a bien été supprimé");
     }
 
 
