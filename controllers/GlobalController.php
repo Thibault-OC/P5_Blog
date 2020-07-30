@@ -22,7 +22,7 @@ $this->define_superglobals();
 * @return mixed
 */
 
-public function get_SERVER($key = null)
+protected function get_SERVER($key = null)
 {
 if (null !== $key) {
 return (isset($this->_SERVER["$key"])) ? $this->_SERVER["$key"] : null;
@@ -37,7 +37,7 @@ return $this->_SERVER;
 * @param $key
 * @return mixed
 */
-public function get_POST($key = null)
+protected function get_POST($key = null)
 {
 if (null !== $key) {
 return (isset($this->_POST["$key"])) ? $this->_POST["$key"] : null;
@@ -52,7 +52,7 @@ return $this->_POST;
 * @param $key
 * @return mixed
 */
-public function get_GET($key = null)
+protected function get_GET($key = null)
 {
 if (null !== $key) {
 return (isset($this->_GET["$key"])) ? $this->_GET["$key"] : null;
@@ -68,7 +68,7 @@ return $this->_GET;
 * @param $key
 * @return mixed
 */
-public function get_SESSION($key = null)
+protected function get_SESSION($key = null)
 {
     if (null !== $key) {
         return (isset($this->_SESSION["$key"])) ? $this->_SESSION["$key"] : null;
@@ -86,7 +86,7 @@ public function get_SESSION($key = null)
 */
 
 
-public function get_FILES($key = null )
+protected function get_FILES($key = null )
     {
         if (null !== $key) {
             return (isset($this->_FILES['image']["$key"])) ? $this->_FILES['image']["$key"] : null;
@@ -97,7 +97,7 @@ public function get_FILES($key = null )
 
 
 
-public function define_superglobals()
+ protected function define_superglobals()
 {
 
 // Store a local copy of the PHP superglobals
@@ -118,7 +118,7 @@ $this->_FILES = (isset($_FILES)) ? $_FILES : null;
 *
 * @return void
 */
-public function unset_superglobals()
+protected function unset_superglobals()
 {
 unset($_SERVER);
 unset($_POST);

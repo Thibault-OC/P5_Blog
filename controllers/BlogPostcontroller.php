@@ -123,8 +123,7 @@ function userPost()
 
       $post = $postManager->getPost($this->get_GET('id'));
 
-
-      print_r(  $this->twig->render('backend/editBlogView.twig', ['post' => $post]));
+      $this->twig->render('backend/editBlogView.twig', ['post' => $post]);
   }
   else{
 

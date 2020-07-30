@@ -80,7 +80,7 @@ switch ($request){
         
     case 'supprimer-blog';
         $deletePost = new Controllers\BlogPostcontroller();
-        $deletePost -> deletePost( $Global->get_GET('id'));
+        $deletePost -> deletePost($Global->get_GET('id'));
         break;
 
     case 'admin';
