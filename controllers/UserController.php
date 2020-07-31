@@ -10,7 +10,7 @@ class UserController extends ConfigController{
      $this->render('backend/connexionUserView.twig');
  }
     function viewInscription(){
-       
+
 
         $this->render('backend/newUserview.twig');
     }
@@ -83,8 +83,8 @@ function connectUser($email, $password)
              $this->put('admin', $user['admin']);
              $this->put('email', $user['email']);
              $this->put('message', $message['message_login']);
-
-             header('Location: accueil');
+             
+             $this->header('accueil');
 
         }
          else {
