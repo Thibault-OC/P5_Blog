@@ -28,8 +28,9 @@ function viewAddPosts(){
 
     $posts = $postManager->getPosts();
 
-    echo $this->twig->render('frontend/ListBlogsView.twig', ['posts' => $posts]);
+   // echo $this->twig->render('frontend/ListBlogsView.twig', ['posts' => $posts]);
 
+    $this->render('frontend/ListBlogsView.twig', ['posts' => $posts]);
 
 }
 

@@ -22,6 +22,7 @@ class ConfigController extends GlobalController
         $this->define_superglobals();
 
 
+
     }
 
 
@@ -31,7 +32,7 @@ class ConfigController extends GlobalController
 
     }
 
-    function twigInit()
+    public function twigInit()
     {
         $loader = new \Twig\Loader\FilesystemLoader('views');
 
@@ -46,6 +47,8 @@ class ConfigController extends GlobalController
         return $this->twig;
 
     }
-
+    public function render($template ,$data = array()){
+        echo $this->twig->display($template,$data);
+    }
     
 }
