@@ -12,7 +12,8 @@ function viewAddPosts(){
 
     if ($this->get_SESSION('admin') == 1){
         
-        echo $this->twig->render('backend/createBlogView.twig');
+
+        $this->render('backend/createBlogView.twig');
     }
     else{
         $this->put('message', "vous n'avez pas les accès");
@@ -28,7 +29,7 @@ function viewAddPosts(){
 
     $posts = $postManager->getPosts();
 
-   // echo $this->twig->render('frontend/ListBlogsView.twig', ['posts' => $posts]);
+
 
     $this->render('frontend/ListBlogsView.twig', ['posts' => $posts]);
 
@@ -44,7 +45,7 @@ function post()
 
     $comment = $this->postComment();
 
-    echo $this->twig->render('frontend/blogView.twig', ['post' => $post , 'comment' => $comment]);
+    $this->render('frontend/blogView.twig',  ['post' => $post , 'comment' => $comment]);
 
 }
 
@@ -107,7 +108,8 @@ function userPosts()
 
         $postsUser = $postManager->getPostsUser($user);
 
-        echo $this->twig->render('backend/ListBlogsUserView.twig', ['posts' => $postsUser]);
+
+        $this->render('backend/ListBlogsUserView.twig', ['posts' => $postsUser]);
     }
     else{
         $this->put('message', "vous n'avez pas les accès");
@@ -124,7 +126,7 @@ function userPost()
 
       $post = $postManager->getPost($this->get_GET('id'));
 
-      $this->twig->render('backend/editBlogView.twig', ['post' => $post]);
+      $this->render('backend/editBlogView.twig', ['post' => $post]);
   }
   else{
 
