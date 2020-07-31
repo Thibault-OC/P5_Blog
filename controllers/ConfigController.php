@@ -50,5 +50,10 @@ class ConfigController extends GlobalController
     public function render($template ,$data = array()){
         echo $this->twig->display($template,$data);
     }
+
+    public function header($template){
+
+        header('Location: '.$template.'');
+    }
     
 }

@@ -75,7 +75,7 @@ switch ($request){
 
     case 'valider';
         $updatePost = new Controllers\BlogPostcontroller();
-        $updatePost->updatePost($Global->get_POST('oldimage') , $_FILES["image"]["name"] ,$Global->get_POST('title'),$Global->get_POST('chapo') ,$Global->get_POST('content') , $Global->get_POST('id'));
+        $updatePost->updatePost($Global->get_POST('oldimage') , $_FILES["image"]["name"] ,$Global->get_POST('title'),$Global->get_POST('chapo') ,$Global->get_POST('content') , $Global->get_GET('id'));
         break;
         
     case 'supprimer-blog';

@@ -18,7 +18,8 @@ function viewAddPosts(){
     else{
         $this->put('message', "vous n'avez pas les accès");
 
-        header('Location: accueil');
+
+        $this->header('accueil');
     }
 }
  function listPosts()
@@ -84,12 +85,12 @@ function storePost($image , $title, $chapo, $content)
 
         $postManager->storePost($auteur, $imageVal, $title, $content, $chapo);
 
-        header('Location: annonces');
+        $this->header('annonces');
 
     } else {
         $this->put('message', "impossible d'ajouter une image");
 
-        header('Location: addpost');
+        $this->header('addpost');
 
     }
 
@@ -114,7 +115,7 @@ function userPosts()
     else{
         $this->put('message', "vous n'avez pas les accès");
 
-        header('Location: accueil');
+        $this->header('accueil');
     }
 
 }
@@ -132,7 +133,7 @@ function userPost()
 
       $this->put('message', "vous n'avez pas les droit accéder a la page");
 
-      header('Location: ../acceuil');
+      $this->header('../acceuil');
   }
 }
 
@@ -146,13 +147,15 @@ function updatePost( $oldimage ,$image ,$title, $chapo, $content, $id)
         $affectedLines = $postManager->updatePost($oldimage ,$title, $content, $chapo, $id);
 
         if($affectedLines === true){
-            header('Location: ../annonce/'.$id);
+
+            $this->header('../annonce/'.$id.'');
+
             $this->put('message', "Le blog a bien été modifié");
         }
         else {
             $this->put('message', "impossible de changer l'image");
 
-            header('Location: ../addpost');
+            $this->header('../addpost');
 
         }
     }
@@ -176,14 +179,16 @@ function updatePost( $oldimage ,$image ,$title, $chapo, $content, $id)
             $affectedLines = $postManager->updatePost($imageVal ,$title, $content, $chapo, $id);
 
             if($affectedLines === true){
-                header('Location: ../annonce/'.$id);
+
+                $this->header('../annonce/'.$id.'');
+
                 $this->put('message', "Le blog a bien été modifié");
             }
 
         } else {
             $this->put('message', "impossible de changer l'image");
 
-            header('Location: ../addpost');
+            $this->header('../addpost');
 
         }
 
@@ -193,7 +198,8 @@ function updatePost( $oldimage ,$image ,$title, $chapo, $content, $id)
     else{
         $this->put('message', "vous n'avez pas les droit pour modifier le blog");
 
-        header('Location: ../acceuil');
+
+        $this->header('../acceuil');
     }
 
 
@@ -206,12 +212,15 @@ function deletePost($id)
     $affectedLines = $postManager->deletePost($id);
 
     if ($affectedLines === false) {
-        header('Location: ../mes-articles');
+
+        $this->header('../mes-articles');
+
         $this->put('message', "Impossible de modifier le post !");
+
     } else {
 
 
-        header('Location: ../mes-articles');
+        $this->header('../mes-articles');
 
         $this->put('message', "le blog a bien été supprimé");
     }
