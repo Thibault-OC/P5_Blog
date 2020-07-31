@@ -13,7 +13,7 @@ class UserManager extends BddManager
         return $affectedLines;
     }
 
-    public function connectUser( $email , $password)
+    public function connectUser( $email )
     {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('SELECT * FROM users WHERE email = ?');
