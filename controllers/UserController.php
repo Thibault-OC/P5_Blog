@@ -6,10 +6,13 @@ use Models;
 class UserController extends ConfigController{
 
  function viewUser(){
-     echo $this->twig->render('backend/connexionUserView.twig');
+
+     $this->render('backend/connexionUserView.twig');
  }
     function viewInscription(){
-        echo $this->twig->render('backend/newUserview.twig');
+       
+
+        $this->render('backend/newUserview.twig');
     }
 
 function storeUser($username, $lastname ,$email, $password)
@@ -24,7 +27,7 @@ function storeUser($username, $lastname ,$email, $password)
 
         $this->put('message', $message['message_email_error']);
 
-        header('Location: inscription');
+        $this->header('inscription');
     }
     else{
         $affectedLines =  $userManager->storeUser($username, $lastname ,$email, $password);
@@ -33,14 +36,15 @@ function storeUser($username, $lastname ,$email, $password)
 
             $this->put('message', $message['message_error_inscription']);
 
-            header('Location: inscription');
+            $this->header('inscription');
             
         }
         else{
 
             $this->put('message', $message['inscription_success']);
 
-            header('Location: accueil');
+
+            $this->header('accueil');
 
 
         }
@@ -61,7 +65,7 @@ function connectUser($email, $password)
 
     $this->put('message', $message['message_auth-erreur']);
 
-    header('Location: user');
+    $this->header('user');
 
 }
     else //On check le mot de passe
@@ -85,7 +89,8 @@ function connectUser($email, $password)
         }
          else {
              $this->put('message', $message['message_refus']);
-             header('Location: user');
+
+             $this->header('user');
 
          }
 
@@ -100,7 +105,7 @@ function logoutUser(){
 
     $this->put('message', $message['message_logout']);
 
-    header('Location: accueil');
+    $this->header('accueil');
 
 }
 }

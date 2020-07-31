@@ -9,7 +9,9 @@ class HomeController extends ConfigController
 {
     function home()
     {
-        echo $this->twig->render('frontend/home.twig');
+
+        $this->render('frontend/home.twig');
+
     }
 
 
@@ -29,13 +31,7 @@ function homeContact($nom , $prenom , $email , $telephone , $commentaire)
         $email_to = "thib.du-42@hotmail.fr";
         $email_subject = "Le sujet de votre email";
 
-        function died($error)
-        {
-            $this->put('message', "Nous sommes désolés, mais des erreurs ont été détectées dans le formulaire que vous avez envoyé.");
-            header('Location:accueil');
-            exit();
-            //die();
-        }
+
 
 
         // si la validation des données attendues existe
@@ -94,8 +90,8 @@ function homeContact($nom , $prenom , $email , $telephone , $commentaire)
             'Reply-To: '.$email."\r\n".
             'X-Mailer: PHP/'.phpversion();
         mail($email_to, $email_subject, $email_message, $headers);
-
-        header('Location:accueil');
+        
+        $this->header('accueil');
         $this->put('message', "Message bien envoyé");
     }
 }

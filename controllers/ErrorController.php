@@ -7,7 +7,8 @@ class ErrorController extends ConfigController{
 function errorPage()
 {
 
-    echo $this->twig->render('frontend/error.twig');
+    
+    $this->render('frontend/error.twig');
 
 }
 

@@ -24,11 +24,13 @@ function addComment($content, $blog)
 
     if (isset($pseudo)) {
 
-        header('Location: annonce/'.$this->get_POST('blog'));
+
+        $this->header('annonce/'.$this->get_POST('blog').'');
     }
     else{
 
-        echo $this->twig->render('backend/connexionUserView.twig', ['message' => $message['message_comment_error']]);
+
+        $this->render('backend/connexionUserView.twig', ['message' => $message['message_comment_error']]);
     }
 
 
@@ -46,13 +48,15 @@ function adminComment()
 
     if ($this->get_SESSION('admin') == 1) {
 
-        echo $this->twig->render('backend/adminView.twig', ['comment' => $comment ]);
+
+        $this->render('backend/adminView.twig', ['comment' => $comment ]);
 
 
 
    }
    else{
-       echo $this->twig->render('frontend/home.twig', ['message' => $message['message_admin_refus']]);
+     
+       $this->render('frontend/home.twig', ['message' => $message['message_admin_refus']]);
 
    }
 
